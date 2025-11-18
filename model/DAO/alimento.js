@@ -43,56 +43,6 @@ const insertAlimento = async function(alimento){
     }
 }
 
-// // função para atualizar um filme existente
-// const updateFilme = async function(filme){
-
-//     try {
-        
-//         let sql = `update tbl_filme set nome                = '${filme.nome}', 
-//                                         duracao             = '${filme.duracao}', 
-//                                         sinopse             = '${filme.sinopse}', 
-//                                         data_lancamento     = '${filme.data_lancamento}', 
-//                                         foto_capa           = '${filme.foto_capa}', 
-//                                         link_trailer        = '${filme.link_trailer}',
-//                                         id_classificacao    = ${filme.id_classificacao},
-//                                         id_idioma           = ${filme.id_idioma},
-//                                         id_nacionalidade    = ${filme.id_nacionalidade}
-//                                     where id = ${filme.id}
-//                                     `
-                            
-//         let resultFilme = await prisma.$executeRawUnsafe(sql)
-
-//         if(resultFilme){
-//             return true
-//         }else{
-//             return false
-//         }
-
-//     } catch (error) {
-//         console.log(error);
-        
-//         return false
-//     }
-
-// }
-
-// // função para deletar um filme existente
-// const deleteFilme = async function(id){
-//     try {
-//         let sql = `delete from tbl_filme where id = ${id}`
-
-//         let result =  await prisma.$executeRawUnsafe(sql)
-
-//         if (result) {
-//             return true
-//         } else {
-//             return false
-//         }
-//     } catch (error) {
-//         return false
-//     }
-// }
-
 
 const selectAllAlimentos = async function(){
     try{

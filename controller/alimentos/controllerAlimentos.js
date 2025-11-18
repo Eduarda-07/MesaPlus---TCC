@@ -208,6 +208,7 @@ const buscarAlimento = async function(id){
 
                     dadosAlimento.status = true
                     dadosAlimento.status_code = 200
+                    
                     for(const item of result){
                         
                         const idEmpresa = parseInt(item.id_empresa)

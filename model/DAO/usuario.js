@@ -58,8 +58,28 @@ const selectUsuarioById = async function(id) {
     }
 }
 
+const updateUsuario = async function(id, usuario) {
+    try {
+       const result = await prisma.$executeRaw `CALL atualizar_usuario(${id},${usuario.nome}, ${usuario.email}, ${usuario.senha}, ${usuario.telefone}, ${usuario.foto})`;
+        
+        if (result > 0) {
+            
+            return result
+           
+        }else{
+            return false
+        }
+
+    } catch (error) {
+        console.log(error)
+        return false
+    }
+}
+
+
 // exportando funções
 module.exports = {
     insertUsuario,
-    selectUsuarioById
+    selectUsuarioById,
+    updateUsuario
 }
