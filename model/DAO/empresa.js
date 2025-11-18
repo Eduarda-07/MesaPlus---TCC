@@ -81,9 +81,28 @@ const selectEmpresaById = async function(id) {
     }
 }
 
+const updateEmpresa = async function(id, empresa) {
+    try {
+       const result = await prisma.$executeRaw `CALL atualizar_empresa(${id},${empresa.nome}, ${empresa.email}, ${empresa.senha}, ${empresa.telefone}, ${empresa.foto})`;
+        
+        if (result > 0) {
+            
+            return result
+           
+        }else{
+            return false
+        }
+
+    } catch (error) {
+        console.log(error)
+        return false
+    }
+}
+
 // exportando funções
 module.exports = {
     insertEmpresa,
     selectAllEmpresas,
-    selectEmpresaById
+    selectEmpresaById,
+    updateEmpresa
 }

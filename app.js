@@ -96,6 +96,21 @@ app.get('/v1/mesa-plus/usuario/:id', cors(), bodyParserJSON, async function (req
     response.json(resultUsuario)
 })
 
+app.put('/v1/mesa-plus/usuario/:id', cors(), bodyParserJSON, async function (request, response){
+    //recebe o content type da requisição
+    let contentType = request.headers['content-type']
+
+    let id = request.params.id
+
+    //recebe do body da requisição os dados encaminhados
+    let dadosBody = request.body
+    
+    let result = await controllerUsuarios.atualizarUsuario(id, dadosBody, contentType)
+
+    response.status(result.status_code)
+    response.json(result)
+})
+
 ////////////////////////////////////////////////////EMPRESAS//////////////////////////////////////////////////////////////////
 
 app.post('/v1/mesa-plus/empresa', cors(), bodyParserJSON, async function (request, response){
@@ -132,6 +147,21 @@ app.get('/v1/mesa-plus/empresa/:id', cors(), bodyParserJSON, async function (req
 
     response.status(resultEmpresa.status_code)
     response.json(resultEmpresa)
+})
+
+app.put('/v1/mesa-plus/empresa/:id', cors(), bodyParserJSON, async function (request, response){
+    //recebe o content type da requisição
+    let contentType = request.headers['content-type']
+
+    let id = request.params.id
+
+    //recebe do body da requisição os dados encaminhados
+    let dadosBody = request.body
+    
+    let result = await controllerEmpresa.atualizarEmpresa(id, dadosBody, contentType)
+
+    response.status(result.status_code)
+    response.json(result)
 })
 
 ///////////////////////////////////////////////////////ONGS///////////////////////////////////////////////////////////////////

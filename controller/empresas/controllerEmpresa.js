@@ -124,9 +124,77 @@ const buscarEmpresa = async function(id){
     }
 }
 
+const atualizarEmpresa = async function (id, empresa, contentType) {
+    try {
+        // usar contentType para especificar quem chega no corpo da requisição, especificando que deve ser JSON        
+        if (String(contentType).toLowerCase() == 'application/json'){
+            if
+            (
+                id            == ""  || id           == undefined  || id           == null  || isNaN(id)  || id <= 0 ||
+                (
+                    (empresa.nome      == ""  || empresa.nome     == undefined  || empresa.nome     == null  || empresa.nome.length     > 100 )  && 
+                    (empresa.email     == ""  || empresa.email    == undefined  || empresa.email    == null  || empresa.email.length    > 100  ) &&
+                    (empresa.senha     == ""  || empresa.senha    == undefined  || empresa.senha    == null ) &&
+                    (empresa.telefone  == ""  || empresa.telefone == undefined  || empresa.telefone == null  || empresa.telefone.length > 15)
+                )
+            ){
+                return message.ERROR_REQUIRED_FIELD //400
+            } else {
+
+                let resultEmpresa = await empresaDAO.selectEmpresaById(parseInt(id))
+
+                if (resultEmpresa) {
+                    let senhaNova = empresa.senha
+        
+                    if (empresa.senha) {
+                        try {
+                            senhaNova = await bcrypt.hash(empresa.senha, 10);
+                        } catch (hashError) {
+                            console.error("Erro ao gerar hash da senha:", hashError);
+                            return message.ERROR_INTERNAL_SERVER_CONTROLLER // 500
+                        }
+                    }
+            
+                    let dadosParaUpdate = {
+                        nome: empresa.nome || null,
+                        email: empresa.email || null,
+                        senha: senhaNova || null,
+                        telefone: empresa.telefone || null,
+                        foto: (empresa.foto !== undefined) ? empresa.foto : null 
+                    }
+            
+    
+                    let result = await empresaDAO.updateEmpresa(id, dadosParaUpdate)
+    
+                    if (result){
+                        let dadosEmpresa = {
+                            status: true,
+                            status_code: message.SUCCESS_UPDATED_ITEM.status_code,
+                            message: message.SUCCESS_UPDATED_ITEM.message,
+                            empresa: empresa
+                        }
+                        return dadosEmpresa
+                    } else {
+                        
+                        return message.ERROR_INTERNAL_SERVER_MODEL // Retorna 500 - Erro no modelo/DAO
+                    }
+                } else {
+                    return message.ERROR_NOT_FOUND
+                }
+          
+            }
+        } else {
+            return message.ERROR_CONTENT_TYPE //415
+        }
+    } catch (error) {
+        return message.ERROR_INTERNAL_SERVER_CONTROLLER //500
+    }
+}
+
 // exportando funções
 module.exports = {
     inserirEmpresa,
     listarEmpresas,
-    buscarEmpresa
+    buscarEmpresa, 
+    atualizarEmpresa
 }
