@@ -96,7 +96,7 @@ const buscarUsuario = async function(id){
     }
 }
 
-const atualizarOng = async function (id, ong, contentType) {
+const atualizarUsuario = async function (id, usuario, contentType) {
     try {
         // usar contentType para especificar quem chega no corpo da requisição, especificando que deve ser JSON        
         if (String(contentType).toLowerCase() == 'application/json'){
@@ -104,23 +104,23 @@ const atualizarOng = async function (id, ong, contentType) {
             (
                 id            == ""  || id           == undefined  || id           == null  || isNaN(id)  || id <= 0 ||
                 (
-                    (ong.nome      == ""  || ong.nome     == undefined  || ong.nome     == null  || ong.nome.length     > 100 )  && 
-                    (ong.email     == ""  || ong.email    == undefined  || ong.email    == null  || ong.email.length    > 100  ) &&
-                    (ong.senha     == ""  || ong.senha    == undefined  || ong.senha    == null ) &&
-                    (ong.telefone  == ""  || ong.telefone == undefined  || ong.telefone == null  || ong.telefone.length > 15)
+                    (usuario.nome      == ""  || usuario.nome     == undefined  || usuario.nome     == null  || usuario.nome.length     > 100 )  && 
+                    (usuario.email     == ""  || usuario.email    == undefined  || usuario.email    == null  || usuario.email.length    > 100  ) &&
+                    (usuario.senha     == ""  || usuario.senha    == undefined  || usuario.senha    == null ) &&
+                    (usuario.telefone  == ""  || usuario.telefone == undefined  || usuario.telefone == null  || usuario.telefone.length > 15)
                 )
             ){
                 return message.ERROR_REQUIRED_FIELD //400
             } else {
 
-                let resultOng = await ongDAO.selectOngById(parseInt(id))
+                let resultUsario = await usuarioDAO.selectUsuarioById(parseInt(id))
 
-                if (resultOng) {
-                    let senhaNova = ong.senha
+                if (resultUsario) {
+                    let senhaNova = usuario.senha
         
-                    if (ong.senha) {
+                    if (usuario.senha) {
                         try {
-                            senhaNova = await bcrypt.hash(ong.senha, 10);
+                            senhaNova = await bcrypt.hash(usuario.senha, 10);
                         } catch (hashError) {
                             console.error("Erro ao gerar hash da senha:", hashError);
                             return message.ERROR_INTERNAL_SERVER_CONTROLLER // 500
@@ -128,25 +128,24 @@ const atualizarOng = async function (id, ong, contentType) {
                     }
             
                     let dadosParaUpdate = {
-                        nome: ong.nome || null,
-                        email: ong.email || null,
+                        nome: usuario.nome || null,
+                        email: usuario.email || null,
                         senha: senhaNova || null,
-                        telefone: ong.telefone || null,
-                        foto: (ong.foto !== undefined) ? ong.foto : null 
+                        telefone: usuario.telefone || null,
+                        foto: (usuario.foto !== undefined) ? usuario.foto : null 
                     }
-        
             
     
-                    let result = await ongDAO.updateOng(id, dadosParaUpdate)
+                    let result = await usuarioDAO.updateUsuario(id, dadosParaUpdate)
     
                     if (result){
-                        let dadosOng = {
+                        let dadosUsuario = {
                             status: true,
                             status_code: message.SUCCESS_UPDATED_ITEM.status_code,
                             message: message.SUCCESS_UPDATED_ITEM.message,
-                            ong: ong
+                            usuario: usuario
                         }
-                        return dadosOng
+                        return dadosUsuario
                     } else {
                         
                         return message.ERROR_INTERNAL_SERVER_MODEL // Retorna 500 - Erro no modelo/DAO
@@ -166,5 +165,6 @@ const atualizarOng = async function (id, ong, contentType) {
 // exportando funções
 module.exports = {
     inserirUsuario,
-    buscarUsuario
+    buscarUsuario,
+    atualizarUsuario
 }

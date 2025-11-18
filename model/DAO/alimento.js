@@ -16,7 +16,16 @@ const prisma = new PrismaClient()
 const insertAlimento = async function(alimento){
     try{
         
-        let result = await prisma.$executeRaw`CALL inserir_alimento(${alimento.nome}, ${alimento.quantidade}, ${alimento.peso}, ${alimento.data_de_validade}, ${alimento.descricao}, ${alimento.imagem}, ${alimento.id_empresa}, ${alimento.id_tipo_peso})`
+        let dataEntrada = alimento.data_de_validade
+        if (dataEntrada.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
+            let [dia, mes, ano] = dataEntrada.split('/')
+            dataEntrada = `${ano}-${mes}-${dia}`
+        }else if (dataEntrada.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
+            let [dia, mes, ano] = dataEntrada.split('-')
+            dataEntrada = `${ano}-${mes}-${dia}`
+        }
+
+        let result = await prisma.$executeRaw`CALL inserir_alimento(${alimento.nome}, ${alimento.quantidade}, ${alimento.peso}, ${alimento.dataEntrada}, ${alimento.descricao}, ${alimento.imagem}, ${alimento.id_empresa}, ${alimento.id_tipo_peso})`
 
        if (result === 1) { 
             let lastIdResult = await prisma.$queryRawUnsafe(`SELECT LAST_INSERT_ID() AS id`)
