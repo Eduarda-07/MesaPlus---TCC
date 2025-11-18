@@ -147,7 +147,8 @@ const buscarAlimentosData = async function(data){
                             imagem: item.f8,
                             id_empresa: item.f9,
                             nome_empresa: item.f10,
-                            foto_empresa: item.f11 
+                            foto_empresa: item.f11,
+                            nome_categoria: item.f12
                         }))
 
                         //Criando um JSON de retorno de dados para a API

@@ -476,7 +476,7 @@ app.get('/v1/mesa-plus/filtroData', cors(), bodyParserJSON, async function (requ
     let contentType = request.headers['content-type']
 
     //recebe do body da requisição os dados encaminhados
-    let { data } = request.body; 
+    let { data } = request.query; 
     let result = await controllerFiltros.buscarAlimentosData(data, contentType)
 
     response.status(result.status_code)
