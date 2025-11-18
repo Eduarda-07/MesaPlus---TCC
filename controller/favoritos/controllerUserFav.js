@@ -122,15 +122,17 @@ const deletarFavoritoById = async function(id_favorito){
             return message.ERROR_REQUIRED_FIELD //400
         }else{
         
-            let resultPedido = await userFavDAO.selectPedidoById(id_favorito)
+            let resultFav = await userFavDAO.selectFavoritoById(id_favorito)
 
-            if (resultPedido) {
+            if (resultFav) {
 
                 let result = await userFavDAO.deleteFavoritoById(id_favorito)
 
                 if(result)
                     return message.SUCCESS_DELETED_ITEM
                 else
+                    console.log(result);
+                    
                     return message.ERROR_INTERNAL_SERVER_MODEL //500
                         
             } else {
@@ -145,6 +147,6 @@ const deletarFavoritoById = async function(id_favorito){
 
 module.exports = {
     inserirUserFav,
-    buscarPedidos,
-    deletarPedidoById
+    buscarFavoritos,
+    deletarFavoritoById
 }

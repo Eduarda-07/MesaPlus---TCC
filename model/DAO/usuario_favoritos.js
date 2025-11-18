@@ -13,7 +13,7 @@ const prisma = new PrismaClient()
 const insertUserFav = async function(userFav){
   try {
 
-      const result = await prisma.$executeRaw `CALL inserir__user_favorito(${userFav.id_usuario}, ${userFav.id_empresa}`
+      const result = await prisma.$executeRaw `CALL inserir_favorito_usuario(${userFav.id_usuario}, ${userFav.id_empresa}`
 
        if (result === 1) { 
             let lastIdResult = await prisma.$queryRawUnsafe(`SELECT LAST_INSERT_ID() AS id`)
@@ -37,7 +37,7 @@ const insertUserFav = async function(userFav){
 const insertOngFav = async function(userFav){
   try {
 
-      const result = await prisma.$executeRaw `CALL inserir_ong_favorito(${userFav.id_ong}, ${userFav.id_empresa})`
+      const result = await prisma.$executeRaw `CALL inserir_favorito_ong(${userFav.id_ong}, ${userFav.id_empresa})`
 
        if (result === 1) { 
             let lastIdResult = await prisma.$queryRawUnsafe(`SELECT LAST_INSERT_ID() AS id`)
@@ -46,7 +46,7 @@ const insertOngFav = async function(userFav){
 
             return {
                 id: Number(idGerado), 
-                usuario: userFav.id_ong,
+                ong: userFav.id_ong,
                 empresa: userFav.id_empresa
             }
         } else
@@ -68,6 +68,8 @@ const deleteFavoritoById = async function(id_favorito){
     else 
       return false
   } catch (error) {
+    console.log(error);
+    
     return false
   }
 }

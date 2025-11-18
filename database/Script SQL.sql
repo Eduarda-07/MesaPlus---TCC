@@ -110,27 +110,6 @@ create table tbl_alimento_categoria (
     references tbl_categoria(id)
 );
 
-create table tbl_favoritos (
-	id int auto_increment primary key,
-    id_usuario int null,
-    id_ong INT NULL,
-    id_empresa int not null,
-    
-    constraint fk_empresa_favorita foreign key (id_empresa) 
-    references tbl_empresas(id),
-    
-    constraint fk_usuario_favoritos foreign key (id_usuario) 
-    references tbl_usuarios(id),
-   
-    constraint fk_ongs_favoritos foreign key (id_ong)  
-     references tbl_ongs(id),
-     
-    constraint CHECK (
-        (id_usuario IS NOT NULL AND id_ong IS NULL) OR 
-        (id_usuario IS NULL AND id_ong IS NOT NULL)
-    )
-);
-
 create table tbl_user_pedidos (
      id INT AUTO_INCREMENT PRIMARY KEY,
     id_usuario INT NULL,
@@ -352,10 +331,18 @@ values
 ('Militros(ml)');
 
 insert INTO tbl_categoria (nome)
-values 	
+
+values 
+
+('Frutas'),
+
+('Legumes'),
+
+('Verduras'),
+
 ('Não Perecivel'),
-('Perecivel'),
-('SemiPerecivel');
+
+('Laticinios');
 
 
 DELIMITER //
@@ -421,50 +408,6 @@ BEGIN
 END //
 DELIMITER ;
 
-DELIMITER //
-CREATE PROCEDURE filtrar_alimentos_empresa (
-    IN id_empresa_filtro INT
-)
-BEGIN
-    SELECT 
-        a.id AS id_alimento, 
-        a.nome AS nome_alimento, 
-        a.quantidade AS quantidade, 
-        a.peso AS peso,
-        a.id_tipo_peso AS id_tipo_peso, 
-        t.tipo AS tipoPeso,
-        a.data_de_validade AS data_de_validade, 
-        a.descricao AS descricao, 
-        a.imagem AS imagem, 
-        a.id_empresa AS id_empresa, 
-        e.nome AS nome_empresa, 
-        e.foto AS foto_empresa,
-        c.nome AS nome_categoria
-    FROM 
-        tbl_alimentos a
-    
-
-    -- 3. JOIN com a tabela de empresa (para obter os detalhes)
-    JOIN 
-        tbl_empresas e ON e.id = a.id_empresa 
-        
-	-- 3. JOIN com a tabela de tipoPeso (para obter os detalhes)
-    JOIN 
-        tbl_tipo_peso t ON t.id = a.id_tipo_peso
-        
-	LEFT JOIN 
-		tbl_alimento_categoria ac ON ac.id_alimento = a.id
-        
-	LEFT JOIN 
-		tbl_categoria c ON c.id = ac.id_categoria
-    
-    WHERE 
-        e.id = id_empresa_filtro
-        
-	ORDER BY a.id desc;
-END //
-
-DELIMITER ;
 
 
 DELIMITER //
@@ -616,3 +559,154 @@ begin
 end;
 //
 delimiter ;
+
+
+DELIMITER //
+CREATE PROCEDURE filtrar_alimentos_empresa (
+    IN id_empresa_filtro INT
+)
+BEGIN
+    SELECT 
+        a.id AS id_alimento, 
+        a.nome AS nome_alimento, 
+        a.quantidade AS quantidade, 
+        a.peso AS peso,
+        a.id_tipo_peso AS id_tipo_peso, 
+        t.tipo AS tipoPeso,
+        a.data_de_validade AS data_de_validade, 
+        a.descricao AS descricao, 
+        a.imagem AS imagem, 
+        a.id_empresa AS id_empresa, 
+        e.nome AS nome_empresa, 
+        e.foto AS foto_empresa,
+        c.nome AS nome_categoria
+    FROM 
+        tbl_alimentos a
+    
+
+    -- 3. JOIN com a tabela de empresa (para obter os detalhes)
+    JOIN 
+        tbl_empresas e ON e.id = a.id_empresa 
+        
+	-- 3. JOIN com a tabela de tipoPeso (para obter os detalhes)
+    JOIN 
+        tbl_tipo_peso t ON t.id = a.id_tipo_peso
+        
+	LEFT JOIN 
+		tbl_alimento_categoria ac ON ac.id_alimento = a.id
+        
+	LEFT JOIN 
+		tbl_categoria c ON c.id = ac.id_categoria
+    
+    WHERE 
+        e.id = id_empresa_filtro
+        
+	ORDER BY a.id desc;
+END //
+
+DELIMITER ;
+
+create table tbl_favoritos (
+	id int auto_increment primary key,
+    id_usuario int null,
+    id_ong INT NULL,
+    id_empresa int not null,
+    
+    constraint fk_empresa_favorita foreign key (id_empresa) 
+    references tbl_empresas(id),
+    
+    constraint fk_usuario_favoritos foreign key (id_usuario) 
+    references tbl_usuarios(id),
+   
+    constraint fk_ongs_favoritos foreign key (id_ong)  
+     references tbl_ongs(id),
+     
+    constraint CHECK (
+        (id_usuario IS NOT NULL AND id_ong IS NULL) OR 
+        (id_usuario IS NULL AND id_ong IS NOT NULL)
+    )
+);
+
+
+CREATE PROCEDURE filtrar_favoritos (
+    IN f_id_usuario INT,
+    IN f_id_ong INT
+)
+BEGIN
+    SELECT 
+        f.id AS id_favoritos, 
+        f.id_usuario AS id_usuario, 
+        f.id_ong AS id_ong,      
+        f.id_empresa AS id_empresa, 
+        e.nome AS nome_empresa, 
+        e.email AS email, 
+        e.cnpj_mei AS cnpj_mei,
+        e.telefone AS telefone,    
+        e.foto AS foto_empresa
+    FROM 
+        tbl_favoritos f
+	JOIN
+        tbl_empresas e ON e.id = a.id_empresa
+        
+    WHERE 
+        (f.id_usuario = f_id_usuario OR f_id_usuario IS NULL) 
+        AND (f.id_ong = f_id_ong OR f_id_ong IS NULL)
+        
+    ORDER BY f.id DESC
+END //
+
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE inserir_favorito_usuario (
+    IN f_id_usuario INT,    
+    IN f_id_ong INT,   
+    IN f_id_empresa INT     
+)
+BEGIN
+    INSERT INTO tbl_favoritos (
+        id_usuario,
+        id_ong,           
+        id_empresa
+    )
+    VALUES (
+        f_id_usuario,
+        NULL,              
+        f_id_empresa
+    );
+END //
+
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE inserir_favorito_ong (
+    IN f_id_ong INT,        
+    IN f_id_empresa INT     
+)
+BEGIN
+    INSERT INTO tbl_favoritos (
+        id_usuario,      
+        id_ong,
+        id_empresa
+    )
+    VALUES (
+        NULL,              
+        f_id_ong,
+        f_id_empresa
+    );
+END //
+
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE deletar_favorito_usuario (
+    IN f_id_favorito INT 
+)
+BEGIN
+    DELETE FROM tbl_user_favoritos
+    WHERE id = f_id_favorito;
+
+END //
+
+DELIMITER ;
+

@@ -64,6 +64,7 @@ const controllerAlimentos = require('./controller/alimentos/controllerAlimentos'
 const controllerTipoPeso = require('./controller/tipo de peso/controllerTipoPeso')
 const controllerFiltros = require('./controller/filtros/controllerFiltros')
 const controllerPedidosUser = require('./controller/pedidos/controllerUserPedido')
+const controllerFavoritos = require('./controller/favoritos/controllerUserFav')
 
 ////////////////////////////////////////////////////USUÁRIOS/////////////////////////////////////////////////////////////////////
 
@@ -525,6 +526,54 @@ app.delete('/v1/mesa-plus/pedido/:id', cors(), bodyParserJSON, async function (r
     //recebe do body da requisição os dados encaminhados
     let dadosBody = request.body
     let result = await controllerPedidosUser.deletarPedidoById(id,dadosBody, contentType)
+
+    response.status(result.status_code)
+    response.json(result)
+
+})
+
+////////////////////////////////////////////////FAVORITOS////////////////////////////////////////////////////////////
+
+app.post('/v1/mesa-plus/favoritoUser', cors(), bodyParserJSON, async function (request, response){
+   
+    //recebe o content type da requisição
+    let contentType = request.headers['content-type']
+
+    //recebe do body da requisição os dados encaminhados
+    let dadosBody = request.body
+    let result = await controllerFavoritos.inserirUserFav(dadosBody, contentType)
+
+    response.status(result.status_code)
+    response.json(result)
+
+})
+
+
+app.get('/v1/mesa-plus/favorito', cors(), bodyParserJSON, async function (request, response){
+   
+    //recebe o content type da requisição
+    let contentType = request.headers['content-type']
+
+    let idUsuario = request.query.id_usuario;
+    let idOng = request.query.id_ong;
+
+    let result = await controllerFavoritos.buscarFavoritos(idUsuario, idOng, contentType)
+
+    response.status(result.status_code)
+    response.json(result)
+
+})
+
+app.delete('/v1/mesa-plus/favorito/:id', cors(), bodyParserJSON, async function (request, response){
+   
+    //recebe o content type da requisição
+    let contentType = request.headers['content-type']
+
+     let id = request.params.id
+
+    //recebe do body da requisição os dados encaminhados
+    let dadosBody = request.body
+    let result = await controllerFavoritos.deletarFavoritoById(id,dadosBody, contentType)
 
     response.status(result.status_code)
     response.json(result)
