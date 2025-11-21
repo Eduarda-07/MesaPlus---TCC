@@ -645,5 +645,5 @@ app.delete('/v1/mesa-plus/favorito/:id', cors(), bodyParserJSON, async function 
 let porta = process.env.PORT || 8080
 
 app.listen(porta, function(){
-    console.log('API funcionando e aguardadndo requisições... Porta: 8080')
+    console.log(`API funcionando e aguardadndo requisições... Porta: ${porta} `)
 })
