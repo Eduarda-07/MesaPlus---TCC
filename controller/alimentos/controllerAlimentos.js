@@ -10,10 +10,11 @@ const message = require('../../modulo/config')
 const alimentoDAO = require('../../model/DAO/alimento')
 const alimentoCatDAO = require('../../model/DAO/alimento_categoria')
 const tipoDAO = require ('../../model/DAO/tipoPeso')
-
+const empresaDAO = require('../../model/DAO/empresa')
 
 const controllerAlimentoCat  = require('./controllerAlimentoCat')
 const controllerTipoPeso  = require('../tipo de peso/controllerTipoPeso')
+const controllerEmpresa = require('../empresas/controllerEmpresa')
 
 const inserirAlimento = async function (alimento, contentType){
     try {
