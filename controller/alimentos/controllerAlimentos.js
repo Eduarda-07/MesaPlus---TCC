@@ -285,7 +285,7 @@ const listarAlimento = async function(){
                 }
                 dadosAlimento.alimentos = arrayAlimentos
 
-                return dados
+                return dadosAlimento
 
             }else{
                 return message.ERROR_NOT_FOUND //404
