@@ -17,7 +17,7 @@ const insertAlimento = async function(alimento){
     try{
         
 
-        let result = await prisma.$executeRaw`CALL inserir_alimento(${alimento.nome}, ${alimento.quantidade}, ${alimento.peso}, ${alimento.data_de_validade}, ${alimento.descricao}, ${alimento.imagem}, ${alimento.id_empresa}, ${alimento.id_tipo_peso})`
+        let result = await prisma.$executeRaw`CALL inserir_alimento(${alimento.nome}, ${alimento.quantidade}, ${alimento.peso}, ${alimento.data_de_validade}, ${alimento.descricao}, ${alimento.imagem}, ${alimento.id_empresa}, ${alimento.id_tipo_peso}, ${alimento.endereco})`
 
        if (result === 1) { 
             let lastIdResult = await prisma.$queryRawUnsafe(`SELECT LAST_INSERT_ID() AS id`)
@@ -33,7 +33,8 @@ const insertAlimento = async function(alimento){
                 data_validade: alimento.data_de_validade,
                 descricao: alimento.descricao,
                 imagem: alimento.imagem,
-                id_empresa:alimento.id_empresa
+                id_empresa: alimento.id_empresa, 
+                endereco: alimento.endereco
             }
         } else
           return false
@@ -62,7 +63,7 @@ const selectAllAlimentos = async function(){
             return false
 
     }catch(error){
-        // console.log(error);
+        console.log(error);
         return false
     }
 }
@@ -86,10 +87,57 @@ const selecByIdAlimento = async function(id){
 
 }
 
+const deletAlimento = async function(id){
+    
+    try {
+      let result = await prisma.$executeRaw`CALL deletar_alimento(${id})`
+
+        if (result) {
+            return result
+        } else {
+            return false
+        }
+    } catch (error) {
+        console.log(error);
+        return false
+    }
+
+}
+
+
+const atualizarAlimento = async function(id, alimento){
+    try{
+        
+        let result = await prisma.$executeRaw`CALL atualizar_alimento(${id}, ${alimento.nome}, ${alimento.quantidade}, ${alimento.peso}, ${alimento.data_de_validade}, ${alimento.descricao}, ${alimento.imagem}, ${alimento.id_empresa}, ${alimento.id_tipo_peso}, ${alimento.endereco})`
+
+            if (result) {
+                return {
+                    id: Number(idGerado), 
+                    nome: alimento.nome,
+                    peso: alimento.peso,
+                    tipoPeso: alimento.id_tipo_peso,
+                    quantidade: alimento.quantidade,
+                    data_validade: alimento.data_de_validade,
+                    descricao: alimento.descricao,
+                    imagem: alimento.imagem,
+                    id_empresa: alimento.id_empresa,
+                    endereco: alimento.endereco  
+                }
+            } else
+            return false
+ 
+    }catch (error){
+       console.log(error);
+        return false
+    }
+}
+
 module.exports = {
     insertAlimento,
     selectAllAlimentos,
-    selecByIdAlimento
+    selecByIdAlimento,
+    atualizarAlimento, 
+    deletAlimento
 }
 
 

@@ -9,13 +9,13 @@ const message = require('../../modulo/config')
 
 const alimentoDAO = require('../../model/DAO/alimento')
 const alimentoCatDAO = require('../../model/DAO/alimento_categoria')
-const empresaDAO = require ('../../model/DAO/empresa')
+const alimentoDAO = require ('../../model/DAO/alimento')
 const tipoDAO = require ('../../model/DAO/tipoPeso')
 
 
 const controllerAlimentoCat  = require('./controllerAlimentoCat')
 
-const controllerEmpresa  = require('../empresas/controllerEmpresa')
+const controllerAlimento  = require('../alimentos/controllerAlimento')
 const controllerTipoPeso  = require('../tipo de peso/controllerTipoPeso')
 
 const inserirAlimento = async function (alimento, contentType){
@@ -29,16 +29,17 @@ const inserirAlimento = async function (alimento, contentType){
                 alimento.data_de_validade == "" || alimento.data_de_validade == undefined || alimento.data_de_validade == null ||
                 alimento.descricao        == "" || alimento.descricao        == undefined || alimento.descricao        == null ||
                 alimento.imagem           == "" || alimento.imagem           == undefined || alimento.imagem           == null ||
-                alimento.id_empresa       == "" || alimento.id_empresa       == undefined || alimento.id_empresa       == null || isNaN(alimento.id_empresa) || Number(alimento.id_empresa) <= 0
+                alimento.id_empresa       == "" || alimento.id_empresa       == undefined || alimento.id_empresa        == null || isNaN(alimento.id_empresa) || Number(alimento.id_empresa) <= 0 ||
+                alimento.endereco         == "" || alimento.endereco         == undefined || alimento.endereco         == null 
             ) {
                
                 return message.ERROR_REQUIRED_FIELD
 
             } else {
                     
-                const idTipoPeso = Number(alimento.id_tipo_peso);
+                let idTipoPeso = Number(alimento.id_tipo_peso)
                 
-                let tipoExiste = await tipoDAO.selectTipoPesoById(idTipoPeso);
+                let tipoExiste = await tipoDAO.selectTipoPesoById(idTipoPeso)
 
                 if (tipoExiste === false) {
                     return message.ERROR_INTERNAL_SERVER_MODEL
@@ -50,9 +51,9 @@ const inserirAlimento = async function (alimento, contentType){
                 
                 }
 
-                const idEmpresa = Number(alimento.id_empresa);
+                let idEmpresa = Number(alimento.id_empresa)
                 
-                let empresaExiste = await empresaDAO.selectEmpresaById(idEmpresa);
+                let empresaExiste = await empresaDAO.selectEmpresaById(idEmpresa)
 
                 if (empresaExiste === false) {
                     return message.ERROR_INTERNAL_SERVER_MODEL
@@ -65,21 +66,23 @@ const inserirAlimento = async function (alimento, contentType){
                 }
 
 
-                const resultAlimento = await alimentoDAO.insertAlimento(alimento)
+                let resultAlimento = await alimentoDAO.insertAlimento(alimento)
 
                 if (resultAlimento) {
-                    const resultadosCategorias = []
+                    let resultados = []
                     if (alimento.categorias && Array.isArray(alimento.categorias)) {
 
-                        for(let categoria of alimento.categorias){
+                        for(let categoria  of alimento.categorias){
+
                             if (categoria.id && !isNaN(categoria.id)) {
                                 let alimentoCat = {
-                                    id_alimento : resultAlimento.id,
+                                    id_alimento: resultAlimento.id,
                                     id_categoria : categoria.id
                                 }
-                               const resultAlimentoCat =  await alimentoCatDAO.insertAlimentoCat(alimentoCat)
-
-                               resultadosCategorias.push(resultAlimentoCat.categoria)
+                               let resultAlimentoCat =  await alimentoCatDAO.insertAlimentoCat(alimentoCat)
+                                console.log(`resultado do insert alimentoCat ${resultAlimentoCat}` );
+                                
+                               resultados.push(resultAlimentoCat.categoria)
                             } 
                         }
                     } 
@@ -89,9 +92,8 @@ const inserirAlimento = async function (alimento, contentType){
                         status_code: message.SUCCESS_CREATED_ITEM.status_code,
                         message: message.SUCCESS_CREATED_ITEM.message,
                         alimento: resultAlimento,
-                        categorias: resultadosCategorias
-                    }
-                    
+                        categorias: resultados
+                    }                    
                     return dados
                 } else {
                     return message.ERROR_INTERNAL_SERVER_MODEL
@@ -109,6 +111,124 @@ const inserirAlimento = async function (alimento, contentType){
     }
 }
 
+
+const atualizarAlimento = async function (id, alimento, contentType){
+    try {
+        if (String(contentType).toLocaleLowerCase() == 'application/json') {
+            if    (
+                id    == ""  || id    == undefined  || id   == null  || isNaN(id)  || id <= 0 
+            ){
+               
+                return message.ERROR_REQUIRED_FIELD
+
+            } else {
+               
+                let camposPrincipais = [
+                            alimento.nome, 
+                            alimento.quantidade, 
+                            alimento.peso, 
+                            alimento.id_tipo_peso, 
+                            alimento.data_de_validade, 
+                            alimento.descricao, 
+                            alimento.imagem,  
+                            alimento.endereco
+                ]
+
+       
+                let campoPrincipalValido = camposPrincipais.some(campo => 
+                    campo !== "" && campo !== undefined && campo !== null
+                )
+        
+        
+                let categoriaValida = false
+                if (alimento.categorias && Array.isArray(alimento.categorias)) {
+                    categoriaValida = alimento.categorias.some(cat => 
+                        cat.id && !isNaN(cat.id) && Number(cat.id) > 0
+                    )
+                 }
+        
+                // Se NENHUM campo principal foi fornecido E NENHUMA categoria válida foi fornecida, retorna erro.
+                if (!campoPrincipalValido && !categoriaValida) {
+                    return message.ERROR_REQUIRED_FIELD;
+                }
+                if(id){
+                    let idAlimento = Number(alimento.id)
+                    
+                    let alimentoExiste = await alimentoDAO.selectAlimentoById(idAlimento)
+
+                    if (alimentoExiste === false) {
+                        return message.ERROR_INTERNAL_SERVER_MODEL
+                    }
+
+                    if (alimentoExiste === null) {
+                        return message.ERROR_NOT_FOUND
+                    }
+                }
+                
+
+                if(alimento.id_tipo_peso){
+                    let idTipoPeso = Number(alimento.id_tipo_peso)
+                
+                    let tipoExiste = await tipoDAO.selectTipoPesoById(idTipoPeso)
+
+                    if (tipoExiste === false) {
+                        return message.ERROR_INTERNAL_SERVER_MODEL
+                    }
+                    if (tipoExiste === null) {
+                        return message.ERROR_NOT_FOUND
+                    }
+                }
+                    let resultAlimento = await alimentoDAO.atualizarAlimento(id, alimento)
+
+                    if (resultAlimento) {
+                        let resultados = []
+                        if (categoriaValida) {
+
+                            for(let categoria of alimento.categorias){
+                                if (categoria.id && !isNaN(categoria.id && categoria.id > 0)) {
+
+                                let alimentoCat = {
+                                    id_alimento : alimento.id,
+                                    id_categoria : categoria.id
+                                }
+                                
+                                
+                                let resultAlimentoCat = await alimentoCatDAO.inserirtAlimentoCat(alimentoCat)
+                                
+                                if (resultAlimentoCat) {
+                                    resultadosCategorias.push(resultAlimentoCat)
+                                }
+                            } 
+                        }
+                    } 
+
+                    let dados = {
+                        status: true,
+                        status_code: message.SUCCESS_UPDATED_ITEM.status_code,
+                        message: message.SUCCESS_UPDATED_ITEM.message,
+                        alimento: resultAlimento,
+                        categorias: resultados
+                    }
+                    
+                    return dados
+                } else {
+                    return message.ERROR_INTERNAL_SERVER_MODEL
+                }
+                
+            }
+        } else {
+            return message.ERROR_CONTENT_TYPE
+        }
+    } catch (error) {
+
+        console.log(error);
+
+        return message.ERROR_INTERNAL_SERVER_CONTROLLER
+
+    }
+}
+
+
 const listarAlimento = async function(){
     try {
 
@@ -122,9 +242,9 @@ const listarAlimento = async function(){
             if(resultAlimento.length > 0){
 
                 //criando um JSON de retorno de dados para API
-                dadosAlimento.status = true
-                dadosAlimento.status_code = 200
-                dadosAlimento.items = resultAlimento.length
+                dados.status = true
+                dados.status_code = 200
+                dados.items = resultAlimento.length
 
                 //Precisamos utilizar o for of, pois o foreach não consegue trabalhar com requisições async com await
                 for(const itemAlimento of resultAlimento){
@@ -136,10 +256,9 @@ const listarAlimento = async function(){
                     if (dadosEmpresa && dadosEmpresa.empresa) {
                         itemAlimento.empresa = dadosEmpresa.empresa
                          //Remover o id do JSON
-                        delete itemAlimento.id_empresa  
+                        delete itemAlimento.id_empresa 
                     } else {
-                        // console.log(dadosEmpresa)
-                        delete itemAlimento.id_empresa  
+                        delete itemAlimento.id_empresa
                         itemAlimento.empresa = null 
                     }
 
@@ -158,8 +277,7 @@ const listarAlimento = async function(){
                     }
 
                     let dadosCategoria = await controllerAlimentoCat.buscarCatPorAlimento(itemAlimento.id)
-                    
-
+                
                     // verificando se retorna array e se não é false
                    if (dadosCategoria && dadosCategoria.status_code == 200 && Array.isArray(dadosCategoria.categoria)){
                         itemAlimento.categorias = dadosCategoria.categoria
@@ -172,7 +290,7 @@ const listarAlimento = async function(){
                 }
                 dadosAlimento.alimentos = arrayAlimentos
 
-                return dadosAlimento
+                return dados
 
             }else{
                 return message.ERROR_NOT_FOUND //404
@@ -200,14 +318,14 @@ const buscarAlimento = async function(id){
             let arrayAlimento = []
             let dadosAlimento = {}
 
-            let result= await alimentoDAO.selecByIdAlimento(parseInt(id))
+            let result = await alimentoDAO.selecByIdAlimento(parseInt(id))
 
             if(result != false || typeof(result) == 'object'){
 
                 if(result.length > 0){
 
-                    dadosAlimento.status = true
-                    dadosAlimento.status_code = 200
+                    dados.status = true
+                    dados.status_code = 200
                     
                     for(const item of result){
                         
@@ -268,9 +386,43 @@ const buscarAlimento = async function(id){
     }
 }
 
+
+const excluirAlimento = async function(id){
+    try {
+        if (id == '' || id == undefined || id == null || isNaN(id) || id <= 0) {
+            return message.ERROR_REQUIRED_FIELD 
+        } else {
+
+            let result = await alimentoDAO.selecByIdAlimento(parseInt(id))
+
+            if(result != false || typeof(result) == 'object'){
+
+                if (result.length > 0) {
+    
+                    let result = await alimentoDAO.deletAlimento(parseInt(id))
+
+                    if (result) {
+                        return message.SUCCESS_DELETED_ITEM //200
+                    } else {
+                        return message.ERROR_INTERNAL_SERVER_MODEL //500
+                    }
+    
+                } else {
+                    return message.ERROR_NOT_FOUND //404
+                }
+            }else{
+                return message.ERROR_INTERNAL_SERVER_MODEL //500
+            }
+        }
+    } catch (error) {
+        return message.ERROR_INTERNAL_SERVER_CONTROLLER //500
+    }
+}
+
 module.exports = {
     inserirAlimento,
     listarAlimento, 
     buscarAlimento
 }
 
+           

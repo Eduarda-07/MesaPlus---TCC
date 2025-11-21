@@ -53,7 +53,7 @@ const buscarCatPorAlimento = async function(idAlimento){
                
                 dadosAlimentoCat.status = true
                 dadosAlimentoCat.status_code = 200
-                dadosAlimentoCat.categoria = result 
+                dadosAlimentoCat.alimentoCat = result 
 
                 return dadosAlimentoCat // 200
             }else{
