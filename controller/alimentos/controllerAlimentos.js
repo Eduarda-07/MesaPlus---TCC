@@ -237,9 +237,9 @@ const listarAlimento = async function(){
             if(resultAlimento.length > 0){
 
                 //criando um JSON de retorno de dados para API
-                dados.status = true
-                dados.status_code = 200
-                dados.items = resultAlimento.length
+                dadosAlimento.status = true
+                dadosAlimento.status_code = 200
+                dadosAlimento.items = resultAlimento.length
 
                 //Precisamos utilizar o for of, pois o foreach não consegue trabalhar com requisições async com await
                 for(const itemAlimento of resultAlimento){
