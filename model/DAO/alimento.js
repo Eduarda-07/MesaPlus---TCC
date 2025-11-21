@@ -17,7 +17,7 @@ const insertAlimento = async function(alimento){
     try{
         
 
-        let result = await prisma.$executeRaw`CALL inserir_alimento(${alimento.nome}, ${alimento.quantidade}, ${alimento.peso}, ${alimento.data_de_validade}, ${alimento.descricao}, ${alimento.imagem}, ${alimento.id_empresa}, ${alimento.id_tipo_peso}, ${alimento.endereco})`
+        let result = await prisma.$executeRaw`CALL inserir_alimento(${alimento.nome}, ${alimento.quantidade}, ${alimento.peso}, ${alimento.data_de_validade}, ${alimento.descricao}, ${alimento.imagem}, ${alimento.id_empresa}, ${alimento.id_tipo_peso})`
 
        if (result === 1) { 
             let lastIdResult = await prisma.$queryRawUnsafe(`SELECT LAST_INSERT_ID() AS id`)
@@ -33,8 +33,7 @@ const insertAlimento = async function(alimento){
                 data_validade: alimento.data_de_validade,
                 descricao: alimento.descricao,
                 imagem: alimento.imagem,
-                id_empresa: alimento.id_empresa, 
-                endereco: alimento.endereco
+                id_empresa: alimento.id_empresa
             }
         } else
           return false
@@ -108,7 +107,7 @@ const deletAlimento = async function(id){
 const atualizarAlimento = async function(id, alimento){
     try{
         
-        let result = await prisma.$executeRaw`CALL atualizar_alimento(${id}, ${alimento.nome}, ${alimento.quantidade}, ${alimento.peso}, ${alimento.data_de_validade}, ${alimento.descricao}, ${alimento.imagem}, ${alimento.id_empresa}, ${alimento.id_tipo_peso}, ${alimento.endereco})`
+        let result = await prisma.$executeRaw`CALL atualizar_alimento(${id}, ${alimento.nome}, ${alimento.quantidade}, ${alimento.peso}, ${alimento.data_de_validade}, ${alimento.descricao}, ${alimento.imagem}, ${alimento.id_empresa}, ${alimento.id_tipo_peso})`
 
             if (result) {
                 return {
@@ -120,8 +119,7 @@ const atualizarAlimento = async function(id, alimento){
                     data_validade: alimento.data_de_validade,
                     descricao: alimento.descricao,
                     imagem: alimento.imagem,
-                    id_empresa: alimento.id_empresa,
-                    endereco: alimento.endereco  
+                    id_empresa: alimento.id_empresa 
                 }
             } else
             return false

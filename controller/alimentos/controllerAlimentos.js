@@ -14,8 +14,6 @@ const tipoDAO = require ('../../model/DAO/tipoPeso')
 
 
 const controllerAlimentoCat  = require('./controllerAlimentoCat')
-
-const controllerAlimento  = require('../alimentos/controllerAlimento')
 const controllerTipoPeso  = require('../tipo de peso/controllerTipoPeso')
 
 const inserirAlimento = async function (alimento, contentType){
@@ -29,8 +27,7 @@ const inserirAlimento = async function (alimento, contentType){
                 alimento.data_de_validade == "" || alimento.data_de_validade == undefined || alimento.data_de_validade == null ||
                 alimento.descricao        == "" || alimento.descricao        == undefined || alimento.descricao        == null ||
                 alimento.imagem           == "" || alimento.imagem           == undefined || alimento.imagem           == null ||
-                alimento.id_empresa       == "" || alimento.id_empresa       == undefined || alimento.id_empresa        == null || isNaN(alimento.id_empresa) || Number(alimento.id_empresa) <= 0 ||
-                alimento.endereco         == "" || alimento.endereco         == undefined || alimento.endereco         == null 
+                alimento.id_empresa       == "" || alimento.id_empresa       == undefined || alimento.id_empresa        == null || isNaN(alimento.id_empresa) || Number(alimento.id_empresa) <= 0 
             ) {
                
                 return message.ERROR_REQUIRED_FIELD
@@ -130,8 +127,7 @@ const atualizarAlimento = async function (id, alimento, contentType){
                             alimento.id_tipo_peso, 
                             alimento.data_de_validade, 
                             alimento.descricao, 
-                            alimento.imagem,  
-                            alimento.endereco
+                            alimento.imagem
                 ]
 
        
@@ -422,7 +418,8 @@ const excluirAlimento = async function(id){
 module.exports = {
     inserirAlimento,
     listarAlimento, 
-    buscarAlimento
+    buscarAlimento,
+    excluirAlimento,
+    atualizarAlimento
 }
 
-           

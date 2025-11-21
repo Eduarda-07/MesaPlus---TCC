@@ -26,8 +26,8 @@ const inserirEmpresa = async function (empresa, contentType) {
                 empresa.email     == ""  || empresa.email    == undefined  || empresa.email    == null  || empresa.email.length    > 100  ||
                 empresa.senha     == ""  || empresa.senha    == undefined  || empresa.senha    == null  ||   
                 empresa.cnpj_mei  == ""  || empresa.cnpj_mei == undefined  || empresa.cnpj_mei == null  || empresa.cnpj_mei.length > 15   ||
-                empresa.telefone  == ""  || empresa.telefone == undefined  || empresa.telefone == null  || empresa.telefone.length > 15   
-                
+                empresa.telefone  == ""  || empresa.telefone == undefined  || empresa.telefone == null  || empresa.telefone.length > 15   ||
+                empresa.endereco  == ""  || empresa.endereco == undefined  || empresa.endereco == null  || empresa.endereco.length > 150   
             ){
                 return message.ERROR_REQUIRED_FIELD //400
             } else {
@@ -135,7 +135,8 @@ const atualizarEmpresa = async function (id, empresa, contentType) {
                     (empresa.nome      == ""  || empresa.nome     == undefined  || empresa.nome     == null  || empresa.nome.length     > 100 )  && 
                     (empresa.email     == ""  || empresa.email    == undefined  || empresa.email    == null  || empresa.email.length    > 100  ) &&
                     (empresa.senha     == ""  || empresa.senha    == undefined  || empresa.senha    == null ) &&
-                    (empresa.telefone  == ""  || empresa.telefone == undefined  || empresa.telefone == null  || empresa.telefone.length > 15)
+                    (empresa.telefone  == ""  || empresa.telefone == undefined  || empresa.telefone == null  || empresa.telefone.length > 15) &&
+                    (empresa.endereco  == ""  || empresa.endereco == undefined  || empresa.endereco == null  || empresa.endereco.length > 150)
                 )
             ){
                 return message.ERROR_REQUIRED_FIELD //400
@@ -160,9 +161,9 @@ const atualizarEmpresa = async function (id, empresa, contentType) {
                         email: empresa.email || null,
                         senha: senhaNova || null,
                         telefone: empresa.telefone || null,
-                        foto: (empresa.foto !== undefined) ? empresa.foto : null 
+                        foto: (empresa.foto !== undefined) ? empresa.foto : null,
+                        endereco: empresa.endereco || null
                     }
-            
     
                     let result = await empresaDAO.updateEmpresa(id, dadosParaUpdate)
     
@@ -181,7 +182,6 @@ const atualizarEmpresa = async function (id, empresa, contentType) {
                 } else {
                     return message.ERROR_NOT_FOUND
                 }
-          
             }
         } else {
             return message.ERROR_CONTENT_TYPE //415

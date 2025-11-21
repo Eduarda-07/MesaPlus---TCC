@@ -14,13 +14,11 @@ const prisma = new PrismaClient()
 // função para inserir uma nova empresa
 const insertEmpresa = async function(empresa) {
     try {
-        const result = await prisma.$executeRaw `CALL inserir_empresa(${empresa.nome}, ${empresa.email}, ${empresa.senha}, ${empresa.cnpj_mei}, ${empresa.telefone})`;
-
+        const result = await prisma.$executeRaw `CALL inserir_empresa(${empresa.nome}, ${empresa.email}, ${empresa.senha}, ${empresa.cnpj_mei}, ${empresa.telefone}, ${empresa.endereco})`;
 
          // result === 1 -> para verificar se uma linha foi afetada (adicionada)
          if (result === 1) { 
             let lastIdResult = await prisma.$queryRawUnsafe(`SELECT LAST_INSERT_ID() AS id`)
-
 
             let idGerado = lastIdResult[0].id
 
@@ -30,13 +28,12 @@ const insertEmpresa = async function(empresa) {
                 email: empresa.email,
                 senha: empresa.senha,
                 cnpj_mei: empresa.cnpj_mei,
-                telefone: empresa.telefone
+                telefone: empresa.telefone,
+                endereco: empresa.endereco
             }
         } else {
             return false
         }
-
-
     } catch (error) {
         console.log(error)
         return false
@@ -83,7 +80,7 @@ const selectEmpresaById = async function(id) {
 
 const updateEmpresa = async function(id, empresa) {
     try {
-       const result = await prisma.$executeRaw `CALL atualizar_empresa(${id},${empresa.nome}, ${empresa.email}, ${empresa.senha}, ${empresa.telefone}, ${empresa.foto})`;
+       const result = await prisma.$executeRaw `CALL atualizar_empresa(${id},${empresa.nome}, ${empresa.email}, ${empresa.senha}, ${empresa.telefone}, ${empresa.foto}, ${empresa.endereco})`;
         
         if (result > 0) {
             

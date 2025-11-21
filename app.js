@@ -391,6 +391,37 @@ app.get('/v1/mesa-plus/alimento/:id', cors(), bodyParserJSON, async function (re
     response.json(resultAlimentos)
 })
 
+app.delete('/v1/mesa-plus/alimento/:id', cors(), bodyParserJSON, async function (request, response){
+    //recebe o content type da requisição
+    let contentType = request.headers['content-type']
+
+     let id = request.params.id
+
+    //recebe do body da requisição os dados encaminhados
+    let dadosBody = request.body
+    let result = await controllerAlimentos.excluirAlimento(id,dadosBody, contentType)
+
+    response.status(result.status_code)
+    response.json(result)
+
+})
+
+app.put('/v1/mesa-plus/alimento/:id', cors(), bodyParserJSON, async function (request, response){
+    
+    //recebe o content type da requisição
+    let contentType = request.headers['content-type']
+
+    
+    let id = request.params.id
+  
+    let dadosBody = request.body
+    let result = await controllerAlimentos.atualizarAlimento(id, dadosBody, contentType)
+
+    response.status(result.status_code)
+    response.json(result)
+
+})
+
 //////////////////////////////////////////////////TIPO PESO//////////////////////////////////////////////////////////////
 
 app.post('/v1/mesa-plus/tipoPeso', cors(), bodyParserJSON, async function (request, response){
@@ -506,7 +537,7 @@ app.get('/v1/mesa-plus/filtroData', cors(), bodyParserJSON, async function (requ
     let contentType = request.headers['content-type']
 
     //recebe do body da requisição os dados encaminhados
-    let { data } = request.query; 
+    let { data } = request.query
     let result = await controllerFiltros.buscarAlimentosData(data, contentType)
 
     response.status(result.status_code)
