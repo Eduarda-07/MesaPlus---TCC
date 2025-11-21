@@ -46,7 +46,6 @@ const insertAlimento = async function(alimento){
 
 
 
-
 const selectAllAlimentos = async function(){
     try{
 

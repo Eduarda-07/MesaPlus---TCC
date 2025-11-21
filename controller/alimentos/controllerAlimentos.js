@@ -9,7 +9,6 @@ const message = require('../../modulo/config')
 
 const alimentoDAO = require('../../model/DAO/alimento')
 const alimentoCatDAO = require('../../model/DAO/alimento_categoria')
-const alimentoDAO = require ('../../model/DAO/alimento')
 const tipoDAO = require ('../../model/DAO/tipoPeso')
 
 
