@@ -13,7 +13,7 @@ const prisma = new PrismaClient()
 const insertUserFav = async function(userFav){
   try {
 
-      const result = await prisma.$executeRaw `CALL inserir_favorito_usuario(${userFav.id_usuario}, ${userFav.id_empresa}`
+      const result = await prisma.$executeRaw `CALL inserir_favorito_usuario(${userFav.id_usuario}, ${userFav.id_empresa})`
 
        if (result === 1) { 
             let lastIdResult = await prisma.$queryRawUnsafe(`SELECT LAST_INSERT_ID() AS id`)
