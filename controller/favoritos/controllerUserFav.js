@@ -27,7 +27,9 @@ const inserirUserFav = async function(userFav, contentType){
                     
                     let resultUser = await userFavDAO.insertUserFav(userFav)
 
-                    if(resultUser){
+                    if(resultUser === false){
+                        return message.ERROR_NOT_FOUND
+                    }else if(resultUser){
                             
                         let dados = {
                             status: true,
@@ -43,7 +45,9 @@ const inserirUserFav = async function(userFav, contentType){
                         
                         let resultOng = await userFavDAO.insertOngFav(userFav)
 
-                        if(resultOng){
+                        if(resultOng === false){
+                            return message.ERROR_NOT_FOUND
+                        }else if(resultOng){
                             let dados = {
                                 status: true,
                                 status_code: message.SUCCESS_CREATED_ITEM.status_code,

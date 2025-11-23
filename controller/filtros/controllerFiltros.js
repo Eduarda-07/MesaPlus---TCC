@@ -75,7 +75,10 @@ const buscarEmpresaAlimentos = async function(id_empresa){
 
             let resultEmpresa = await empresaDAO.selectEmpresaById(parseInt(id_empresa))
 
-            if (resultEmpresa) {
+            if (resultEmpresa === null) {
+                return message.ERROR_NOT_FOUND
+                
+            } else if (resultEmpresa) {
                 let dadosAlimento = {}
 
                 let resultAlimento = await filtrosDAO.selectAlimentoEmpresa(parseInt(id_empresa))
@@ -115,6 +118,8 @@ const buscarEmpresaAlimentos = async function(id_empresa){
             }else{
                 return message.ERROR_INTERNAL_SERVER_MODEL //500
             }
+
+            
         }
 
     } catch (error) {
