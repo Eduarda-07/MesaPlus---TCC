@@ -40,6 +40,11 @@ const inserirOng = async function (ong, contentType) {
                 ong.senha = hashedSenha
 
                 let resultInsert = await ongDAO.insertOng(ong)
+                
+                if (resultInsert === 'ERROR_DUPLICATE_ENTRY') {
+                    return message.ERROR_DUPLICATE
+                }
+                
                 if (resultInsert){
                     let dadosOng = {
                         status: true,

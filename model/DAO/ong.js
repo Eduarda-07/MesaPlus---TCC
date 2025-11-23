@@ -38,6 +38,11 @@ const insertOng = async function(ong) {
 
     } catch (error) {
         console.log(error)
+
+        if (String(error).includes('Duplicate entry')){
+            return 'ERROR_DUPLICATE_ENTRY'
+        }
+
         return false
     }
 }
