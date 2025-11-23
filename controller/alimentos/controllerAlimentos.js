@@ -138,7 +138,7 @@ const atualizarAlimento = async function (id, alimento, contentType){
                 let categoriaValida = false
                 if (alimento.categorias && Array.isArray(alimento.categorias)) {
                     categoriaValida = alimento.categorias.some(cat => 
-                        cat.id && !isNaN(cat.id) && Number(cat.id) > 0
+                        !isNaN(cat) && Number(cat) > 0
                     )
                  }
         
@@ -147,7 +147,7 @@ const atualizarAlimento = async function (id, alimento, contentType){
                     return message.ERROR_REQUIRED_FIELD;
                 }
                 if(id){
-                    let idAlimento = Number(alimento.id)
+                    let idAlimento = Number(id)
                     
                     let alimentoExiste = await alimentoDAO.selecByIdAlimento(idAlimento)
 
@@ -167,18 +167,17 @@ const atualizarAlimento = async function (id, alimento, contentType){
                         if (categoriaValida) {
 
                             for(let categoria of alimento.categorias){
-                                if (categoria.id && !isNaN(categoria.id && categoria.id > 0)) {
+                               if (!isNaN(categoria) && Number(categoria) > 0) { 
 
                                 let alimentoCat = {
-                                    id_alimento : alimento.id,
-                                    id_categoria : categoria.id
+                                    id_alimento : Number(id), 
+                                    id_categoria : Number(categoria) 
                                 }
-                                
-                                
-                                let resultAlimentoCat = await alimentoCatDAO.insertAlimentoCat(alimentoCat)
+
+                                let resultAlimentoCat = await alimentoCatDAO.atualizarAlimentoCat(alimentoCat)
                                 
                                 if (resultAlimentoCat) {
-                                    resultadosCategorias.push(resultAlimentoCat)
+                                    resultados.push(resultAlimentoCat)
                                 }
                             } 
                         }
@@ -306,8 +305,8 @@ const buscarAlimento = async function(id){
 
                 if(result.length > 0){
 
-                    dados.status = true
-                    dados.status_code = 200
+                    dadosAlimento.status = true
+                    dadosAlimento.status_code = 200
                     
                     for(const item of result){
                         
@@ -343,8 +342,8 @@ const buscarAlimento = async function(id){
                     
 
                         // verificando se retorna array e se não é false
-                       if (dadosCategoria && dadosCategoria.status_code == 200 && Array.isArray(dadosCategoria.categoria)){
-                            item.categorias = dadosCategoria.categoria
+                       if (dadosCategoria && dadosCategoria.status_code == 200 && Array.isArray(dadosCategoria.alimentoCat)){
+                            item.categorias = dadosCategoria.alimentoCat
                         } else {
                             item.categorias = []
                         }

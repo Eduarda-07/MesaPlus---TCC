@@ -106,11 +106,11 @@ const deletAlimento = async function(id){
 const atualizarAlimento = async function(id, alimento){
     try{
         
-        let result = await prisma.$executeRaw`CALL atualizar_alimento(${id}, ${alimento.nome}, ${alimento.quantidade}, ${alimento.peso}, ${alimento.data_de_validade}, ${alimento.descricao}, ${alimento.imagem})`
+        let result = await prisma.$executeRaw`CALL atualizar_alimento_dados(${id}, ${alimento.nome}, ${alimento.quantidade}, ${alimento.peso}, ${alimento.data_de_validade}, ${alimento.descricao}, ${alimento.imagem})`
 
             if (result) {
                 return {
-                    id: Number(idGerado), 
+                    id: Number(id), 
                     nome: alimento.nome,
                     quantidade: alimento.quantidade,
                     peso: alimento.peso,
