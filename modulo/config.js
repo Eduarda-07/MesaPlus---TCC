@@ -27,6 +27,7 @@ const ERROR_SENDING_CODE = { status: false, status_code: 500, message: "Falha ao
 
 const ERROR_EMAIL = { status: false, status_code: 500, message: "Falha ao enviar o código. Verifique se o e-mail está correto!!!"}
 
+const ERROR_DUPLICATE =  { status: false, status_code: 400, message: "Não é possível cadastrar um email ou cpf/cnpj que já foi cadastrado!!!"}
 
 /*************************** STATUS CODE DE MENSAGEM DE SUCESSO ************************/
 const SUCCESS_CREATED_ITEM = {status: true, status_code: 201, message: "Item criado com sucesso!!"}
@@ -52,6 +53,7 @@ module.exports = {
     ERROR_INVALID_CODE,
     ERROR_SENDING_CODE,
     ERROR_EMAIL,
+    ERROR_DUPLICATE,
     SUCCESS_CREATED_ITEM,
     SUCCESS_DELETED_ITEM,
     SUCCESS_UPDATED_ITEM,

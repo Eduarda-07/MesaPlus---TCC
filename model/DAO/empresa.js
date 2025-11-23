@@ -36,6 +36,11 @@ const insertEmpresa = async function(empresa) {
         }
     } catch (error) {
         console.log(error)
+
+        if (String(error).includes('Duplicate entry')){
+            return 'ERROR_DUPLICATE_ENTRY'
+        }
+
         return false
     }
 }

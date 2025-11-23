@@ -175,7 +175,7 @@ const atualizarAlimento = async function (id, alimento, contentType){
                                 }
                                 
                                 
-                                let resultAlimentoCat = await alimentoCatDAO.inserirtAlimentoCat(alimentoCat)
+                                let resultAlimentoCat = await alimentoCatDAO.insertAlimentoCat(alimentoCat)
                                 
                                 if (resultAlimentoCat) {
                                     resultadosCategorias.push(resultAlimentoCat)
