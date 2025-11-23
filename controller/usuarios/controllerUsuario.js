@@ -43,6 +43,11 @@ const inserirUsuario = async function (usuario, contentType) {
                 usuario.senha = hashedSenha
 
                 let resultInsert = await usuarioDAO.insertUsuario(usuario)
+                
+                if (resultInsert === 'ERROR_DUPLICATE_ENTRY') {
+                    return message.ERROR_DUPLICATE
+                }
+                
                 if (resultInsert){
                     let dadosUsuario = {
                         status: true,

@@ -47,7 +47,7 @@ const inserirEmpresa = async function (empresa, contentType) {
      
                 if (resultInsert === 'ERROR_DUPLICATE_ENTRY') {
                      return message.ERROR_DUPLICATE
-                 }
+                }
      
                 if (resultInsert){
                     let dadosEmpresa = {
