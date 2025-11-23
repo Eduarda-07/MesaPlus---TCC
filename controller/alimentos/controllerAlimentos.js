@@ -121,13 +121,12 @@ const atualizarAlimento = async function (id, alimento, contentType){
             } else {
                
                 let camposPrincipais = [
-                            alimento.nome, 
-                            alimento.quantidade, 
-                            alimento.peso, 
-                            alimento.id_tipo_peso, 
-                            alimento.data_de_validade, 
-                            alimento.descricao, 
-                            alimento.imagem
+                    alimento.nome, 
+                    alimento.quantidade, 
+                    alimento.peso, 
+                    alimento.data_de_validade, 
+                    alimento.descricao, 
+                    alimento.imagem
                 ]
 
        
@@ -150,7 +149,7 @@ const atualizarAlimento = async function (id, alimento, contentType){
                 if(id){
                     let idAlimento = Number(alimento.id)
                     
-                    let alimentoExiste = await alimentoDAO.selectAlimentoById(idAlimento)
+                    let alimentoExiste = await alimentoDAO.selecByIdAlimento(idAlimento)
 
                     if (alimentoExiste === false) {
                         return message.ERROR_INTERNAL_SERVER_MODEL
@@ -161,19 +160,6 @@ const atualizarAlimento = async function (id, alimento, contentType){
                     }
                 }
                 
-
-                if(alimento.id_tipo_peso){
-                    let idTipoPeso = Number(alimento.id_tipo_peso)
-                
-                    let tipoExiste = await tipoDAO.selectTipoPesoById(idTipoPeso)
-
-                    if (tipoExiste === false) {
-                        return message.ERROR_INTERNAL_SERVER_MODEL
-                    }
-                    if (tipoExiste === null) {
-                        return message.ERROR_NOT_FOUND
-                    }
-                }
                     let resultAlimento = await alimentoDAO.atualizarAlimento(id, alimento)
 
                     if (resultAlimento) {
