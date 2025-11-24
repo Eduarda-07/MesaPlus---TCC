@@ -52,6 +52,14 @@ O projeto busca:
 
 ---
 
+| Status | Status code | Mesnsagem |
+|--------|-------------|-----------|
+|  True  |     201     |Item criado com sucesso!!|
+| False  |     400     |Não foi possível realizar a requisição, pois existem campos obrigatórios que não foram preenchidos ou não atendem a quantidade de caracteres!!!
+|
+| False  |     415     |Não foi possível processar a requisição, pois o tipo de dados encaminhado não é processado pelo servidor. Favor encaminhar dados apenas no formato JSON!!!
+|
+
 
 
 
