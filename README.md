@@ -70,7 +70,7 @@ https://mesaplus-bbh2hhheaab7f6ep.canadacentral-01.azurewebsites.net/v1/mesa-plu
 
 ## 🍽️ Empresas
 
-### 🔧 Método: `PUT`
+### ✏️ Método: `PUT`
 ### 📌 Descrição: Inserir nova empresa
 
 ---
@@ -86,23 +86,26 @@ https://mesaplus-bbh2hhheaab7f6ep.canadacentral-01.azurewebsites.net/v1/mesa-plu
   "telefone": "(11) 9111-1111",
   "endereco": "Rua das flores n°1"
 }
-
-### Exemplo de retorno:
+```
+## 📤 Exemplo de Retorno (201)
+```json
 {
   "status": true,
   "status_code": 201,
   "message": "Item criado com sucesso!!",
-    "empresa": {
-      "id": 7,
-      "nome": "Mesa Plus",
-      "email": "mesa.plus@gmail.com",
-      "senha": "$2b$10$WR/pI.P1amiy.qLVxehSDOzRXOwtl8kuauxXNVsgTOyNxCYoxvXrm",
-      "cnpj_mei": "1111111111111",
-      "telefone": "(11) 9111-1111",
-      "endereco": "Rua da flores n° 1"
-     }
+  "empresa": {
+    "id": 7,
+    "nome": "Mesa Plus",
+    "email": "mesa.plus@gmail.com",
+    "senha": "$2b$10$WR/pI.P1amiy.qLVxehSDOzRXOwtl8kuauxXNVsgTOyNxCYoxvXrm",
+    "cnpj_mei": "1111111111111",
+    "telefone": "(11) 9111-1111",
+    "endereco": "Rua da flores n° 1"
+  }
 }
-### Possível erro:
+```
+### ⚠️ Possível Erro (400)
+```json
 {
   "status": false,
   "status_code": 400,
