@@ -73,8 +73,8 @@ https://mesaplus-bbh2hhheaab7f6ep.canadacentral-01.azurewebsites.net/v1/mesa-plu
 ---
 
 ## 🍽️ Empresas
-
 ### ✏️ Método: `POST`
+###  🔀  Caminho: /empresa
 ### 📌 Descrição: Inserir nova empresa
 
 ---
@@ -117,11 +117,101 @@ https://mesaplus-bbh2hhheaab7f6ep.canadacentral-01.azurewebsites.net/v1/mesa-plu
 }
 ```
 
+### ✏️ Método: `GET`
+###  🔀  Caminho: /empresa
+### 📌 Descrição: Listar todas as empresas
+
+---
+
+### 📤 Exemplo de Retorno (200)
+```json
+{
+  "status": true,
+  "status_code": 200,
+  "itens": 5,
+  "empresas": [
+    {
+      "id": 1,
+      "nome": "Nome atualizado",
+      "email": "BurgerKing@gmail.com",
+      "senha": "$2b$10$6ZGwhfS.kUFPtL07r61RtOPSLL1lKI.D4WODToq929WcCrEEM8VLy",
+      "cnpj_mei": "12121212121212",
+      "telefone": "11111111111",
+      "foto": null,
+      "data_modificacao": "2025-11-18T20:01:45.000Z",
+      "codigo_recuperacao": null,
+      "codigo_expiracao": null,
+      "endereco": null
+    }
+  ]
+}
+```
+### ✏️ Método: `GET`
+###  🔀  Caminho: /empresa/${id da empresa}
+### 📌 Descrição: Bucar uma empresa pelo id 
+
+---
+
+### 📤 Exemplo de Retorno (200)
+```json
+{
+  "status": true,
+  "status_code": 200,
+  "empresa": {
+    "id": 1,
+    "nome": "Nome atualizado",
+    "email": "BurgerKing@gmail.com",
+    "senha": "$2b$10$6ZGwhfS.kUFPtL07r61RtOPSLL1lKI.D4WODToq929WcCrEEM8VLy",
+    "cnpj_mei": "12121212121212",
+    "telefone": "11111111111",
+    "foto": null,
+    "data_modificacao": "2025-11-18T20:01:45.000Z",
+    "codigo_recuperacao": null,
+    "codigo_expiracao": null,
+    "endereco": null
+  }
+}
+```
+### ✏️ Método: `PUT`
+###  🔀  Caminho: /empresa/${id da empresa}
+### 📌 Descrição: Atualizar uma empresa pelo id 
+
+---
+
+### 📥 Exemplo de Body
+
+```json
+{
+  "nome": "BK"
+}
+```
+
+### 📤 Exemplo de Retorno (200)
+```json
+{
+  "status": true,
+  "status_code": 200,
+  "message": "Item atualizado com sucesso!!",
+  "empresa": {
+    "nome": "BK"
+  }
+}
+```
+### ⚠️ Possível Erro (400)
+(Empresa não existe)
+```json
+{
+  "status": false,
+  "status_code": 400,
+  "message": "Não foram encontrados itens de retorno!!!"
+}
+```
+
 ---
 
 ## 🏛️ ONGs
-
 ### ✏️ Método: `POST`
+### 🔀  Caminho: /ong
 ### 📌 Descrição: Inserir nova ong
 
 ---
@@ -159,12 +249,71 @@ https://mesaplus-bbh2hhheaab7f6ep.canadacentral-01.azurewebsites.net/v1/mesa-plu
   "message": "Não é possível cadastrar um email ou cpf/cnpj que já foi cadastrado!!!"
 }
 ```
+### ✏️ Método: `GET`
+###  🔀  Caminho: /ong/${id da ong}
+### 📌 Descrição: Bucar uma ong pelo id 
+
+---
+
+### 📤 Exemplo de Retorno (200)
+```json
+{
+  "status": true,
+  "status_code": 200,
+  "ong": {
+    "id": 1,
+    "nome": "Ajuda ao que precisam",
+    "email": "Aqp@gmail.com",
+    "senha": "$2b$10$ScoI1I8epl/VE.s17CWRSeOiHv0My9Mqg.Z4oy6ikrimpyU5AKWEi",
+    "telefone": "7657563455",
+    "foto": null,
+    "data_modificacao": null,
+    "codigo_recuperacao": null,
+    "codigo_expiracao": null
+  }
+}
+```
+### ✏️ Método: `PUT`
+###  🔀  Caminho: /ong/${id da ong}
+### 📌 Descrição: Atualizar uma ong pelo id 
+
+---
+
+### 📥 Exemplo de Body
+
+```json
+
+{
+  "nome": "Ajuda aos necessitados"  
+}
+```
+
+### 📤 Exemplo de Retorno (200)
+```json
+{
+  "status": true,
+  "status_code": 200,
+  "message": "Item atualizado com sucesso!!",
+  "usuario": {
+    "nome": "Ajuda aos necessitados"
+  }
+}
+```
+### ⚠️ Possível Erro (400)
+(Ong não existe)
+```json
+{
+  "status": false,
+  "status_code": 400,
+  "message": "Não foram encontrados itens de retorno!!!"
+}
+```
 
 ---
 
 ## 👤 Usuários Comuns
-
 ### ✏️ Método: `POST`
+### 🔀  Caminho: /usuario
 ### 📌 Descrição: Inserir novo usuário
 
 ---
@@ -204,7 +353,65 @@ https://mesaplus-bbh2hhheaab7f6ep.canadacentral-01.azurewebsites.net/v1/mesa-plu
   "message": "Não é possível cadastrar um email ou cpf/cnpj que já foi cadastrado!!!"
 }
 ```
+### ✏️ Método: `GET`
+###  🔀  Caminho: /usuario/${id da usuario}
+### 📌 Descrição: Bucar um usuário pelo id 
 
+---
+
+### 📤 Exemplo de Retorno (200)
+```json
+{
+  "status": true,
+  "status_code": 200,
+  "usuario": {
+    "id": 8,
+    "nome": "Fernada Nascimento",
+    "email": "fernanda.nascimento@gmail.com",
+    "senha": "$2b$10$NEmnxXEq70BodNFeoRCXgOYwc8BQl598H0ji94aCq21MrJv0NPsWq",
+    "cpf": "111.11111.2",
+    "telefone": "(11) 91111-1111",
+    "foto": null,
+    "data_modificacao": null,
+    "codigo_recuperacao": null,
+    "codigo_expiracao": null
+  }
+}
+```
+### ✏️ Método: `PUT`
+###  🔀  Caminho: /usuario/${id da usuario}
+### 📌 Descrição: Atualizar um usuário pelo id 
+
+---
+
+### 📥 Exemplo de Body
+
+```json
+{
+  "nome": "Fernanda"  
+}
+```
+
+### 📤 Exemplo de Retorno (200)
+```json
+{
+  "status": true,
+  "status_code": 200,
+  "message": "Item atualizado com sucesso!!",
+  "usuario": {
+    "nome": "Fernanda"
+  }
+}
+```
+### ⚠️ Possível Erro (400)
+(Usuário não existe)
+```json
+{
+  "status": false,
+  "status_code": 400,
+  "message": "Não foram encontrados itens de retorno!!!"
+}
+```
 ---
 
 ## 🍝 Alimentos
@@ -471,6 +678,7 @@ Descrição: categoria não existe
   "message": "Não foram encontrados itens de retorno!!!"
 }
 ```
+
 
 
 
