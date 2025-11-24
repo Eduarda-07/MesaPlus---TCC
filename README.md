@@ -111,6 +111,97 @@ https://mesaplus-bbh2hhheaab7f6ep.canadacentral-01.azurewebsites.net/v1/mesa-plu
   "status_code": 400,
   "message": "Não é possível cadastrar um email ou cpf/cnpj que já foi cadastrado!!!"
 }
+```
+
+---
+
+## 🏛️ ONGs
+
+### ✏️ Método: `PUT`
+### 📌 Descrição: Inserir nova ong
+
+---
+
+## 📥 Exemplo de Body
+
+```json
+{
+    "nome": "Sementes do amanhã",
+    "email": "sementes.doamanha@gmail.com",
+    "senha": "1234",
+    "telefone": "(11) 91111-1111"
+}
+```
+## 📤 Exemplo de Retorno (201)
+```json
+{
+  "status": true,
+  "status_code": 201,
+  "message": "Item criado com sucesso!!",
+  "ong": {
+    "id": 7,
+    "nome": "Sementes do amanhã",
+    "email": "sementes.doamanha@gmail.com",
+    "senha": "$2b$10$XPRoMMDVTFtNrcICnAwa.usl6IkM1mNVZeozutl/28rA.5posAFym",
+    "telefone": "(11) 91111-1111"
+  }
+}
+```
+### ⚠️ Possível Erro (400)
+```json
+{
+  "status": false,
+  "status_code": 400,
+  "message": "Não é possível cadastrar um email ou cpf/cnpj que já foi cadastrado!!!"
+}
+```
+
+---
+
+## 👤 Usuários Comuns
+
+### ✏️ Método: `PUT`
+### 📌 Descrição: Inserir novo usuário
+
+---
+
+## 📥 Exemplo de Body
+
+```json
+{
+    "nome": "Fernada Nascimento",
+    "email": "fernanda.nascimento@gmail.com",
+    "senha": "12345",
+    "cpf": "111.11111.2",
+    "telefone": "(11) 91111-1111"
+}
+```
+## 📤 Exemplo de Retorno (201)
+```json
+{
+  "status": true,
+  "status_code": 201,
+  "message": "Item criado com sucesso!!",
+  "usuario": {
+    "id": 8,
+    "nome": "Fernada Nascimento",
+    "email": "fernanda.nascimento@gmail.com",
+    "senha": "$2b$10$NEmnxXEq70BodNFeoRCXgOYwc8BQl598H0ji94aCq21MrJv0NPsWq",
+    "cpf": "111.11111.2",
+    "telefone": "(11) 91111-1111"
+  }
+}
+```
+### ⚠️ Possível Erro (400)
+```json
+{
+  "status": false,
+  "status_code": 400,
+  "message": "Não é possível cadastrar um email ou cpf/cnpj que já foi cadastrado!!!"
+}
+```
+
+
 
 
 
