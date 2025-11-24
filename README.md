@@ -55,6 +55,7 @@ O projeto busca:
 ## URL base
 https://mesaplus-bbh2hhheaab7f6ep.canadacentral-01.azurewebsites.net/v1/mesa-plus
 
+---
 
 ## Respostas comuns
 
@@ -64,6 +65,46 @@ https://mesaplus-bbh2hhheaab7f6ep.canadacentral-01.azurewebsites.net/v1/mesa-plu
 | False  |     400     |Não foi possível realizar a requisição, pois existem campos obrigatórios que não foram preenchidos ou não atendem a quantidade de caracteres!!!|
 | False  |     415     |Não foi possível processar a requisição, pois o tipo de dados encaminhado não é processado pelo servidor. Favor encaminhar dados apenas no formato JSON!!!|
 | False  |     500     |Devido a erros internos no servidor da model, não foi possível processar a requisição!!!|
+
+---
+
+## Empresas
+
+### Método: Put
+### Descrição: Inserir nova empresa
+### Exemplo de body: 
+{
+    "nome": "Mesa Plus",
+    "email": "mesa.plus@gmail.com",
+    "senha": "1234",
+    "cnpj_mei": "1111111111111",
+    "telefone": "(11) 9111-1111",
+    "endereco": "Rua das flores n°1"
+}
+### Exemplo de retorno:
+{
+  "status": true,
+  "status_code": 201,
+  "message": "Item criado com sucesso!!",
+    "empresa": {
+      "id": 7,
+      "nome": "Mesa Plus",
+      "email": "mesa.plus@gmail.com",
+      "senha": "$2b$10$WR/pI.P1amiy.qLVxehSDOzRXOwtl8kuauxXNVsgTOyNxCYoxvXrm",
+      "cnpj_mei": "1111111111111",
+      "telefone": "(11) 9111-1111",
+      "endereco": "Rua da flores n° 1"
+     }
+}
+### Possível erro:
+{
+  "status": false,
+  "status_code": 400,
+  "message": "Não é possível cadastrar um email ou cpf/cnpj que já foi cadastrado!!!"
+}
+
+
+
 
 
 
