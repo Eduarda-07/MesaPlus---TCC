@@ -9,7 +9,11 @@
 - [Respostas comuns](#respostas-comuns)  
 - [Empresas](#empresas)  
 - [ONGS](#ongs)  
-- [Usuários](#usuarios)  
+- [Usuários](#usuarios)
+- [Alimentos](#alimentos)
+- [Pedidos](#pedidos)
+- [Favoritos](#favoritos)
+- [Filtros](#filtros)      
 
 ---
 
@@ -70,12 +74,12 @@ https://mesaplus-bbh2hhheaab7f6ep.canadacentral-01.azurewebsites.net/v1/mesa-plu
 
 ## 🍽️ Empresas
 
-### ✏️ Método: `PUT`
+### ✏️ Método: `POST`
 ### 📌 Descrição: Inserir nova empresa
 
 ---
 
-## 📥 Exemplo de Body
+### 📥 Exemplo de Body
 
 ```json
 {
@@ -87,7 +91,7 @@ https://mesaplus-bbh2hhheaab7f6ep.canadacentral-01.azurewebsites.net/v1/mesa-plu
   "endereco": "Rua das flores n°1"
 }
 ```
-## 📤 Exemplo de Retorno (201)
+### 📤 Exemplo de Retorno (201)
 ```json
 {
   "status": true,
@@ -117,12 +121,12 @@ https://mesaplus-bbh2hhheaab7f6ep.canadacentral-01.azurewebsites.net/v1/mesa-plu
 
 ## 🏛️ ONGs
 
-### ✏️ Método: `PUT`
+### ✏️ Método: `POST`
 ### 📌 Descrição: Inserir nova ong
 
 ---
 
-## 📥 Exemplo de Body
+### 📥 Exemplo de Body
 
 ```json
 {
@@ -132,7 +136,7 @@ https://mesaplus-bbh2hhheaab7f6ep.canadacentral-01.azurewebsites.net/v1/mesa-plu
     "telefone": "(11) 91111-1111"
 }
 ```
-## 📤 Exemplo de Retorno (201)
+### 📤 Exemplo de Retorno (201)
 ```json
 {
   "status": true,
@@ -160,12 +164,12 @@ https://mesaplus-bbh2hhheaab7f6ep.canadacentral-01.azurewebsites.net/v1/mesa-plu
 
 ## 👤 Usuários Comuns
 
-### ✏️ Método: `PUT`
+### ✏️ Método: `POST`
 ### 📌 Descrição: Inserir novo usuário
 
 ---
 
-## 📥 Exemplo de Body
+### 📥 Exemplo de Body
 
 ```json
 {
@@ -176,7 +180,7 @@ https://mesaplus-bbh2hhheaab7f6ep.canadacentral-01.azurewebsites.net/v1/mesa-plu
     "telefone": "(11) 91111-1111"
 }
 ```
-## 📤 Exemplo de Retorno (201)
+### 📤 Exemplo de Retorno (201)
 ```json
 {
   "status": true,
@@ -201,7 +205,272 @@ https://mesaplus-bbh2hhheaab7f6ep.canadacentral-01.azurewebsites.net/v1/mesa-plu
 }
 ```
 
+---
 
+## 🍝 Alimentos
+
+### ✏️ Método: `POST`
+### 📌 Descrição: Inserir novo alimento
+
+---
+
+### 📥 Exemplo de Body
+
+```json
+{
+    "nome":"teste 6",
+    "quantidade": 2,
+    "peso": 2,
+    "data_de_validade": "20-12-2025",
+    "descricao": "http://foto.jpg",
+    "imagem":"http://link.mp4",
+    "id_empresa":1,
+    "id_tipo_peso": 1,
+    "categorias": [
+        {"id": 1},
+        {"id": 2}
+    ]
+}
+```
+### 📤 Exemplo de Retorno (201)
+```json
+{
+  "status": true,
+  "status_code": 201,
+  "message": "Item criado com sucesso!!",
+  "alimento": {
+    "id": 12,
+    "nome": "Feijão",
+    "peso": 2,
+    "tipoPeso": 1,
+    "quantidade": 2,
+    "data_validade": "2025-12-20",
+    "descricao": "Feijão delicioso",
+    "imagem": "http://link.mp4",
+    "id_empresa": 1
+  },
+  "categorias": [
+    1,
+    2
+  ]
+}
+```
+### ⚠️ Possível Erro (400)
+Descrição: empresa ou tipo de usuário não existe
+```json
+{
+  "status": false,
+  "status_code": 404,
+  "message": "Não foram encontrados itens de retorno!!!"
+}
+```
+
+---
+
+## 🛒 Pedidos 
+
+### ✏️ Método: `POST`
+### 📌 Descrição: Inserir novo pedido
+
+---
+
+### 📥 Exemplo de Body
+
+```json
+{
+    "id_ong": 1,
+    "id_alimento": 3,
+    "quantidade": 2
+}
+```
+### 📤 Exemplo de Retorno (201)
+```json
+{
+  "status": true,
+  "status_code": 201,
+  "message": "Item criado com sucesso!!",
+  "pedido": {
+    "id": 6,
+    "usuario": 1,
+    "alimento": 3,
+    "quantidade": 2
+  }
+}
+```
+### ⚠️ Possível Erro (400)
+Descrição: usuário ou alimento não existe
+```json
+{
+  "status": false,
+  "status_code": 404,
+  "message": "Não foram encontrados itens de retorno!!!"
+}
+```
+
+---
+
+## ⭐ Favoritos
+
+### ✏️ Método: `POST`
+### 📌 Descrição: Inserir nova empresa favorita
+
+---
+
+### 📥 Exemplo de Body
+
+```json
+{
+    "id_ong": 1,
+    "id_empresa": 1
+}
+```
+### 📤 Exemplo de Retorno (201)
+```json
+{
+  "status": true,
+  "status_code": 201,
+  "message": "Item criado com sucesso!!",
+  "favorito": {
+    "id": 3,
+    "ong": 1,
+    "empresa": 1
+  }
+}
+```
+### ⚠️ Possível Erro (400)
+Descrição: usuário ou empresa não existe
+```json
+{
+  "status": false,
+  "status_code": 404,
+  "message": "Não foram encontrados itens de retorno!!!"
+}
+```
+
+---
+
+## 📝 Filtros
+
+### ✏️ Método: `GET`
+### 📌 Descrição: buscar alimentos filtrando pela empresa, categoria ou por data
+
+---
+### Filtrar por empresa:
+#### Caminho: /empresaAlimento/${id da empresa}
+
+### 📤 Exemplo de Retorno (201)
+```json
+{
+  "status": true,
+  "status_code": 200,
+  "resultFiltro": [
+    {
+      "id_alimento": 11,
+      "nome_alimento": "Açucar refinado União",
+      "quantidade": 2,
+      "peso": "2",
+      "id_tipo_peso": 1,
+      "tipo": "Quilos(Kg)",
+      "data_de_validade": "2025-12-20T00:00:00.000Z",
+      "descricao": "http://foto.jpg",
+      "imagem": "http://link.mp4",
+      "id_empresa": 1,
+      "nome_empresa": "BK",
+      "foto_empresa": null,
+      "nome_categoria": "SemiPerecivel"
+    }
+}
+```
+
+### ⚠️ Possível Erro (400)
+Descrição: empresa não existe
+```json
+{
+  "status": false,
+  "status_code": 404,
+  "message": "Não foram encontrados itens de retorno!!!"
+}
+```
+
+### Filtrar por data:
+#### Caminho: /filtroData
+
+### 📥 Exemplo de request
+curl --location 'http://localhost:8080/v1/mesa-plus/filtroData?data=20-12-2025' \
+--data ''
+
+
+### 📤 Exemplo de Retorno (201)
+```json
+{
+  "status": true,
+  "status_code": 200,
+  "resultFiltro": [
+    {
+      "id_alimento": 11,
+      "nome_alimento": "Açucar refinado União",
+      "quantidade": 2,
+      "peso": "2",
+      "id_tipo_peso": 1,
+      "tipo": "Quilos(Kg)",
+      "data_de_validade": "2025-12-20T00:00:00.000Z",
+      "descricao": "http://foto.jpg",
+      "imagem": "http://link.mp4",
+      "id_empresa": 1,
+      "nome_empresa": "BK",
+      "foto_empresa": null,
+      "nome_categoria": null
+    }
+  ]
+}
+```
+
+### ⚠️ Possível Erro (400)
+Descrição: data não cadatrada
+```json
+{
+  "status": false,
+  "status_code": 404,
+  "message": "Não foram encontrados itens de retorno!!!"
+}
+```
+
+### Filtrar por data:
+#### Caminho: /filtroCat/${id da categoria}
+
+### 📤 Exemplo de Retorno (201)
+```json
+{
+  "status": true,
+  "status_code": 200,
+  "resultFiltro": [
+    {
+      "id_alimento": 10,
+      "nome_alimento": "Cafe Uniao",
+      "quantidade": 25,
+      "peso": "500",
+      "id_tipo_peso": 2,
+      "tipo": "Gramas(g)",
+      "data_de_validade": "2025-12-25T00:00:00.000Z",
+      "descricao": "otimo para começar o dia",
+      "imagem": "https://mesaplustcc.blob.core.windows.net/fotos/4_1763434485383_cafer.jpeg",
+      "id_empresa": 4,
+      "nome_empresa": "Extra",
+      "foto_empresa": null,
+      "nome_categoria": "Perecivel"
+    }
+}
+```
+
+### ⚠️ Possível Erro (400)
+Descrição: categoria não existe
+```json
+{
+  "status": false,
+  "status_code": 404,
+  "message": "Não foram encontrados itens de retorno!!!"
+}
+```
 
 
 
