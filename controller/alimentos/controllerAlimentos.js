@@ -269,7 +269,7 @@ const listarAlimento = async function(){
                     arrayAlimentos.push(itemAlimento)
  
                 }
-                dadosAlimento.alimentos = arrayAlimentos
+                dadosAlimento.alimentos = arrayAlimentos.sort((a, b) => b.id - a.id)
 
                 return dadosAlimento
 
@@ -357,7 +357,7 @@ const buscarAlimento = async function(id){
                     return message.ERROR_NOT_FOUND //404
                 }
           
-            }else{
+            }else {
                 return message.ERROR_INTERNAL_SERVER_MODEL //500
             }
         }

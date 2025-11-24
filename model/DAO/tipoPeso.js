@@ -107,9 +107,9 @@ const selectTipoPesoById = async function(id) {
         if (result)
             return result
         else
-            return false
+            return null
     } catch (error) {
-        // console.log(error)
+        console.log(error)
         return false
     }
 }

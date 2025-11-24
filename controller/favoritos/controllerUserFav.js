@@ -80,7 +80,6 @@ const buscarFavoritos = async function(id_usuario, id_ong){
 
             let dadosEmpresa = {}
           
-    
             let resultFavorito = await userFavDAO.selectFavoritoUser(id_usuario, id_ong)
 
              if(resultFavorito != false || typeof(resultFavorito) == 'object'){

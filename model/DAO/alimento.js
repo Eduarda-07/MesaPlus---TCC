@@ -50,7 +50,7 @@ const selectAllAlimentos = async function(){
     try{
 
         //scriptSQL para retornar todos os dados
-        let sql = 'select * from tbl_alimentos'
+        let sql = 'select * from tbl_alimentos order by id desc'
 
         //executa o scriptSQL no banco de dados e aguarda o retorno dos dados 
         let result = await prisma.$queryRawUnsafe(sql)
@@ -76,7 +76,7 @@ const selecByIdAlimento = async function(id){
         if (result) {
             return result
         } else {
-            return false
+            return null
         }
     } catch (error) {
         console.log(error);
