@@ -68,19 +68,25 @@ https://mesaplus-bbh2hhheaab7f6ep.canadacentral-01.azurewebsites.net/v1/mesa-plu
 
 ---
 
-## Empresas
+## 🍽️ Empresas
 
-### Método: Put
-### Descrição: Inserir nova empresa
-### Exemplo de body: 
+### 🔧 Método: `PUT`
+### 📌 Descrição: Inserir nova empresa
+
+---
+
+## 📥 Exemplo de Body
+
+```json
 {
-    "nome": "Mesa Plus",
-    "email": "mesa.plus@gmail.com",
-    "senha": "1234",
-    "cnpj_mei": "1111111111111",
-    "telefone": "(11) 9111-1111",
-    "endereco": "Rua das flores n°1"
+  "nome": "Mesa Plus",
+  "email": "mesa.plus@gmail.com",
+  "senha": "1234",
+  "cnpj_mei": "1111111111111",
+  "telefone": "(11) 9111-1111",
+  "endereco": "Rua das flores n°1"
 }
+
 ### Exemplo de retorno:
 {
   "status": true,
@@ -102,6 +108,7 @@ https://mesaplus-bbh2hhheaab7f6ep.canadacentral-01.azurewebsites.net/v1/mesa-plu
   "status_code": 400,
   "message": "Não é possível cadastrar um email ou cpf/cnpj que já foi cadastrado!!!"
 }
+
 
 
 
