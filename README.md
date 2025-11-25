@@ -471,6 +471,135 @@ Descrição: empresa ou tipo de usuário não existe
   "message": "Não foram encontrados itens de retorno!!!"
 }
 ```
+### ✏️ Método: `GET`
+###  🔀  Caminho: /alimentos
+### 📌 Descrição: Listar todos os alimentos 
+
+---
+
+### 📤 Exemplo de Retorno (200)
+```json
+{
+  "status": true,
+  "status_code": 200,
+  "items": 14,
+  "alimentos": [
+    {
+      "id": 17,
+      "nome": "Feijão",
+      "quantidade": 2,
+      "peso": "2",
+      "data_de_validade": "2025-12-20T00:00:00.000Z",
+      "descricao": "Feijão delicioso",
+      "imagem": "http://link.mp4",
+      "empresa": {
+        "id": 1,
+        "nome": "BK",
+        "email": "BurgerKing@gmail.com",
+        "senha": "$2b$10$6ZGwhfS.kUFPtL07r61RtOPSLL1lKI.D4WODToq929WcCrEEM8VLy",
+        "cnpj_mei": "12121212121212",
+        "telefone": "11111111111",
+        "foto": null,
+        "data_modificacao": "2025-11-23T01:03:54.000Z",
+        "codigo_recuperacao": null,
+        "codigo_expiracao": null,
+        "endereco": null
+      },
+      "tipoPeso": [
+        {
+          "id": 1,
+          "tipo": "Quilos(Kg)"
+        }
+      ],
+      "categorias": []
+    }
+      ...
+  ]
+}
+```
+### ✏️ Método: `GET`
+###  🔀  Caminho: /alimento/${id do alimento}
+### 📌 Descrição: Bucar um alimento pelo id 
+
+---
+
+### 📤 Exemplo de Retorno (200)
+```json
+{
+  "status": true,
+  "status_code": 200,
+  "alimento": [
+    {
+      "id": 11,
+      "nome": "Teste Atualização",
+      "quantidade": 2,
+      "peso": "2",
+      "data_de_validade": "2025-12-20T00:00:00.000Z",
+      "descricao": "http://foto.jpg",
+      "imagem": "http://link.mp4",
+      "empresa": {
+        "id": 1,
+        "nome": "BK",
+        "email": "BurgerKing@gmail.com",
+        "senha": "$2b$10$6ZGwhfS.kUFPtL07r61RtOPSLL1lKI.D4WODToq929WcCrEEM8VLy",
+        "cnpj_mei": "12121212121212",
+        "telefone": "11111111111",
+        "foto": null,
+        "data_modificacao": "2025-11-23T01:03:54.000Z",
+        "codigo_recuperacao": null,
+        "codigo_expiracao": null,
+        "endereco": null
+      },
+      "tipoPeso": [
+        {
+          "id": 1,
+          "tipo": "Quilos(Kg)"
+        }
+      ],
+      "categorias": [
+        {
+          "id": 3,
+          "nome": "SemiPerecivel"
+        }
+      ]
+    }
+  ]
+}
+```
+### ✏️ Método: `PUT`
+###  🔀  Caminho: /alimento/${id do alimento}
+### 📌 Descrição: Atualizar um alimento pelo id 
+
+---
+
+### 📥 Exemplo de Body
+
+```json
+{
+    "categorias": [2,3]
+}
+```
+
+### 📤 Exemplo de Retorno (200)
+```json
+{
+  "status": true,
+  "status_code": 200,
+  "message": "Item atualizado com sucesso!!",
+  "usuario": {
+    "nome": "Fernanda"
+  }
+}
+```
+### ⚠️ Possível Erro (400)
+(Usuário não existe)
+```json
+{
+  "status": false,
+  "status_code": 400,
+  "message": "Não foram encontrados itens de retorno!!!"
+}
+```
 
 ---
 
@@ -678,6 +807,7 @@ Descrição: categoria não existe
   "message": "Não foram encontrados itens de retorno!!!"
 }
 ```
+
 
 
 
