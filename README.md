@@ -13,7 +13,8 @@
 - [Alimentos](#alimentos)
 - [Pedidos](#pedidos)
 - [Favoritos](#favoritos)
-- [Filtros](#filtros)      
+- [Filtros](#filtros)
+- [Login](#login)     
 
 ---
 
@@ -74,7 +75,7 @@ https://mesaplus-bbh2hhheaab7f6ep.canadacentral-01.azurewebsites.net/v1/mesa-plu
 
 ## 🍽️ Empresas
 ### ✏️ Método: `POST`
-###  🔀  Caminho: /empresa
+### 🔀  Caminho: /empresa
 ### 📌 Descrição: Inserir nova empresa
 
 ---
@@ -118,7 +119,7 @@ https://mesaplus-bbh2hhheaab7f6ep.canadacentral-01.azurewebsites.net/v1/mesa-plu
 ```
 
 ### ✏️ Método: `GET`
-###  🔀  Caminho: /empresa
+### 🔀  Caminho: /empresa
 ### 📌 Descrição: Listar todas as empresas
 
 ---
@@ -379,7 +380,7 @@ https://mesaplus-bbh2hhheaab7f6ep.canadacentral-01.azurewebsites.net/v1/mesa-plu
 }
 ```
 ### ✏️ Método: `PUT`
-###  🔀  Caminho: /usuario/${id da usuario}
+### 🔀  Caminho: /usuario/${id da usuario}
 ### 📌 Descrição: Atualizar um usuário pelo id 
 
 ---
@@ -567,7 +568,7 @@ Descrição: empresa ou tipo de usuário não existe
 }
 ```
 ### ✏️ Método: `PUT`
-###  🔀  Caminho: /alimento/${id do alimento}
+### 🔀  Caminho: /alimento/${id do alimento}
 ### 📌 Descrição: Atualizar um alimento pelo id 
 
 ---
@@ -606,6 +607,7 @@ Descrição: empresa ou tipo de usuário não existe
 ## 🛒 Pedidos 
 
 ### ✏️ Método: `POST`
+### 🔀  Caminho: /pedidoUsuario
 ### 📌 Descrição: Inserir novo pedido
 
 ---
@@ -643,11 +645,82 @@ Descrição: usuário ou alimento não existe
 }
 ```
 
+### ❌ Método: `DELETE`
+### 🔀  Caminho: /pedido/{id do pedido}
+### 📌 Descrição: Deletar pedido da lista
+
+---
+
+### 📤 Exemplo de Retorno (200)
+```json
+  {
+    "status": true,
+    "status_code": 200,
+    "message": "Item deletado com sucesso!!"
+  }
+```
+### ⚠️ Possível Erro (400)
+Descrição: pedido não existe
+```json
+{
+  "status": false,
+  "status_code": 404,
+  "message": "Não foram encontrados itens de retorno!!!"
+}
+```
+
+### ❌ Método: `GET`
+### 🔀  Caminho: /pedido
+### 📌 Descrição: Listar pedidos do usuário
+
+---
+
+### 📥 Exemplo de request
+curl --location 'http://localhost:8080/v1/mesa-plus/pedido?id_ong=1' \
+--data ''
+
+### 📤 Exemplo de Retorno (200)
+```json
+ {
+    "status": true,
+    "status_code": 200,
+    "result": [
+        {
+            "id_pedido": 6,
+            "id_usuario": null,
+            "id_ong": 1,
+            "id_alimento": 3,
+            "quantidade_pedido": 2,
+            "nome_alimento": "Arroz Camil",
+            "quantidade": 10,
+            "peso": "5",
+            "id_tipo_peso": 1,
+            "tipo": "Quilos(Kg)",
+            "data_de_validade": "2025-11-20T00:00:00.000Z",
+            "descricao": "Um ótimo acompanhamento para fazer um almoço delicioso ",
+            "imagem": "https://mesaplustcc.blob.core.windows.net/fotos/1_1763430475483_arroz.jpeg",
+            "id_empresa": 1,
+            "nome_empresa": "BK",
+            "foto_empresa": null
+        }
+  }
+```
+### ⚠️ Possível Erro (400)
+Descrição: usuário não tem pedidos
+```json
+{
+  "status": false,
+  "status_code": 404,
+  "message": "Não foram encontrados itens de retorno!!!"
+}
+```
+
 ---
 
 ## ⭐ Favoritos
 
 ### ✏️ Método: `POST`
+### 🔀  Caminho: /favoritoUser
 ### 📌 Descrição: Inserir nova empresa favorita
 
 ---
@@ -683,6 +756,70 @@ Descrição: usuário ou empresa não existe
 }
 ```
 
+### ❌ Método: `DELETE`
+### 🔀  Caminho: /favorito/{id do favorito}
+### 📌 Descrição: Deletar empresa favorita da lista
+
+---
+
+### 📤 Exemplo de Retorno (200)
+```json
+  {
+    "status": true,
+    "status_code": 200,
+    "message": "Item deletado com sucesso!!"
+  }
+```
+### ⚠️ Possível Erro (400)
+Descrição: usuário não tem empresas favoritas
+```json
+{
+  "status": false,
+  "status_code": 404,
+  "message": "Não foram encontrados itens de retorno!!!"
+}
+```
+
+### ✏️ Método: `GET`
+### 🔀  Caminho: /favorito
+### 📌 Descrição: Listar empresas favoritas do usuário
+
+---
+
+### 📥 Exemplo de request
+curl --location 'http://localhost:8080/v1/mesa-plus/favorito?id_ong=1' \
+--data ''
+
+### 📤 Exemplo de Retorno (200)
+```json
+{
+    "status": true,
+    "status_code": 200,
+    "result": [
+        {
+            "id_favorito": 3,
+            "id_usuario": null,
+            "id_ong": 1,
+            "id_empresa": 1,
+            "nome": "BK",
+            "email": "BurgerKing@gmail.com",
+            "cnpj_mei": "12121212121212",
+            "telefone": "11111111111",
+            "foto": null
+        }
+        ...
+  }
+```
+### ⚠️ Possível Erro (400)
+Descrição: usuário não tem favoritos
+```json
+{
+  "status": false,
+  "status_code": 404,
+  "message": "Não foram encontrados itens de retorno!!!"
+}
+```
+
 ---
 
 ## 📝 Filtros
@@ -692,9 +829,9 @@ Descrição: usuário ou empresa não existe
 
 ---
 ### Filtrar por empresa:
-#### Caminho: /empresaAlimento/${id da empresa}
+#### 🔀Caminho: /empresaAlimento/${id da empresa}
 
-### 📤 Exemplo de Retorno (201)
+### 📤 Exemplo de Retorno (200)
 ```json
 {
   "status": true,
@@ -729,14 +866,14 @@ Descrição: empresa não existe
 ```
 
 ### Filtrar por data:
-#### Caminho: /filtroData
+#### 🔀 Caminho: /filtroData
 
 ### 📥 Exemplo de request
 curl --location 'http://localhost:8080/v1/mesa-plus/filtroData?data=20-12-2025' \
 --data ''
 
 
-### 📤 Exemplo de Retorno (201)
+### 📤 Exemplo de Retorno (200)
 ```json
 {
   "status": true,
@@ -771,10 +908,10 @@ Descrição: data não cadatrada
 }
 ```
 
-### Filtrar por data:
-#### Caminho: /filtroCat/${id da categoria}
+### Filtrar por categoria:
+#### 🔀 Caminho: /filtroCat/${id da categoria}
 
-### 📤 Exemplo de Retorno (201)
+### 📤 Exemplo de Retorno (200)
 ```json
 {
   "status": true,
@@ -807,14 +944,432 @@ Descrição: categoria não existe
   "message": "Não foram encontrados itens de retorno!!!"
 }
 ```
+---
+## 🔓 Login
 
+### ✏️ Método: `POST`
+### 🔀  Caminho: /login
+### 📌 Descrição: Logar na aplicação
 
+---
 
+### 📥 Exemplo de Body
 
+```json
+{
+    "email": "exemplo@gmail.com",
+    "senha": "1234",
+    "tipo": "empresa"
+}
+```
+### 📤 Exemplo de Retorno (200)
+```json
+{
+    "status": true,
+    "status_code": 200,
+    "message": "Logado com sucesso!!",
+    "usuario": {
+        "id": 7,
+        "nome": "Mesa Plus",
+        "email": "mesa.plus@gmail.com",
+        "telefone": "(11) 9111-1111",
+        "cpf": null,
+        "cnpj_mei": "1111111111111",
+        "foto_perfil": null
+    }
+}
+```
+### ⚠️ Possível Erro (400)
+Descrição: usuário não existe
+```json
+{
+  "status": false,
+  "status_code": 404,
+  "message": "Não foram encontrados itens de retorno!!!"
+}
+```
 
+---
 
+## 🔢 Código de recuperação
 
+### ✏️ Método: `POST`
+### 🔀  Caminho: /enviar-codigo
+### 📌 Descrição: ´Pedir código de recuperação
+---
 
+### 📥 Exemplo de Body
+
+```json
+{
+   "email":  "exemplo@gmail.com",
+   "tipo": "ong"
+}
+```
+### 📤 Exemplo de Retorno (200)
+```json
+{
+    "status": true,
+    "status_code": 200,
+    "message": "Código de recuperação enviado com sucesso!!"
+}
+```
+### ⚠️ Possível Erro (500)
+Descrição: email não foi enviado
+```json
+{
+    "status": false,
+    "status_code": 500,
+    "message": "Falha ao enviar o código!!!"
+}
+```
+
+### ✏️ Método: `POST`
+### 🔀  Caminho: /codigo-recuperacao
+### 📌 Descrição: Verificar se o código digitado está correto
+
+---
+
+### 📥 Exemplo de Body
+
+```json
+{
+   "email": "exemplo@gmail.com",
+   "tipo": "ong",
+   "codigo": "ad3e23"
+}
+```
+### 📤 Exemplo de Retorno (200)
+```json
+{
+    "status": true,
+    "status_code": 200,
+    "message": "Código verificado com sucesso!!"
+}
+```
+### ⚠️ Possível Erro (404)
+Descrição: código errado ou expirado
+```json
+{
+    "status": false,
+    "status_code": 404,
+    "message": "Não foram encontrados itens de retorno!!!"
+}
+```
+
+### ✏️ Método: `PUT`
+### 🔀  Caminho: /apagar-codigo
+### 📌 Descrição: Tornar vazio o atributo que guarda os códigos
+
+---
+
+### 📥 Exemplo de Body
+
+```json
+{
+   "email": "eduarda.dejesussilva20@gmail.com",
+   "tipo": "ong"
+}
+```
+### 📤 Exemplo de Retorno (200)
+```json
+{
+    "status": true,
+    "status_code": 200,
+    "message": "Item deletado com sucesso!!"
+}
+```
+
+---
+
+## 🔑 Senha
+
+### ✏️ Método: `PUT`
+### 🔀  Caminho: /nova-senha
+### 📌 Descrição: Atualizar ou recuperar senha após código de recuperação
+
+---
+
+### 📥 Exemplo de Body
+
+```json
+{
+    // "email": "exemplo@gmail.com" -- pode recuperar enviando o email do                usuário em vez do id
+   "id": 3, 
+   "tipo": "ong",
+   "senha": "1234"  
+}
+```
+
+### 📤 Exemplo de Retorno (200)
+```json
+{
+    "status": true,
+    "status_code": 200,
+    "message": "Item atualizado com sucesso!!"
+}
+```
+
+---
+
+### 📋 Categoria
+
+### ✏️ Método: `POST`
+### 🔀 Caminho: /categoria
+### 📌 Descrição: Inserir nova categoria
+
+---
+
+### 📥 Exemplo de Body
+
+```json
+{
+    "nome": "Grãos"
+}
+```
+### 📤 Exemplo de Retorno (201)
+```json
+{
+  "status": true,
+  "status_code": 201,
+  "message": "Item criado com sucesso!!",
+  "categoria":{
+    "nome": "Grãos"
+}
+}
+```
+
+### ❌ Método: `DELETE`
+### 🔀 Caminho: /categoria/{id da categoria}
+### 📌 Descrição: Deletar categoria
+
+---
+
+### 📤 Exemplo de Retorno (200)
+```json
+  {
+    "status": true,
+    "status_code": 200,
+    "message": "Item deletado com sucesso!!"
+  }
+```
+
+### ✏️ Método: `GET`
+### 🔀 Caminho: /categoria
+### 📌 Descrição: Listar categorias
+
+---
+
+### 📤 Exemplo de Retorno (200)
+```json
+{
+    "status": true,
+    "status_code": 200,
+    "itens": 2
+    "categorias": [
+        {
+            "id": 1,
+            "nome": "Grãos"
+        }
+        ...
+  }
+```
+
+### ✏️ Método: `GET`
+### 🔀 Caminho: /categoria/{id da categoria}
+### 📌 Descrição: Buscar categoria pelo id
+
+---
+
+### 📤 Exemplo de Retorno (200)
+```json
+{
+    "status": true,
+    "status_code": 200,
+    "itens": 2
+    "categorias": [
+        {
+            "id": 1,
+            "nome": "Grãos"
+        }
+        ...
+  }
+```
+
+### ⚠️ Possível Erro (404)
+Descrição: categoria não existe
+```json
+{
+    "status": false,
+    "status_code": 404,
+    "message": "Não foram encontrados itens de retorno!!!"
+}
+```
+
+### ✏️ Método: `PUT`
+### 🔀 Caminho: /categoria/${id da categoria}
+### 📌 Descrição: Atualizar uma categoria pelo id 
+
+---
+
+### 📥 Exemplo de Body
+
+```json
+{
+  "nome": "Massas"
+}
+```
+
+### 📤 Exemplo de Retorno (200)
+```json
+{
+  "status": true,
+  "status_code": 200,
+  "message": "Item atualizado com sucesso!!",
+  "categoria": {
+    "nome": "Massas"
+  }
+}
+```
+### ⚠️ Possível Erro (400)
+Descrição: categoria não existe
+```json
+{
+  "status": false,
+  "status_code": 400,
+  "message": "Não foram encontrados itens de retorno!!!"
+}
+```
+
+---
+
+### ⚖️ Tipo de peso
+
+### ✏️ Método: `POST`
+### 🔀 Caminho: /tipoPeso
+### 📌 Descrição: Inserir novo tipo de peso
+
+---
+
+### 📥 Exemplo de Body
+
+```json
+{
+    "tipo": "KG"
+}
+```
+### 📤 Exemplo de Retorno (201)
+```json
+{
+  "status": true,
+  "status_code": 201,
+  "message": "Item criado com sucesso!!",
+  "tipoPeso":{
+    "tipo": "KG"
+}
+}
+```
+
+### ❌ Método: `DELETE`
+### 🔀 Caminho: /tipoPeso/{id do tipo de peso}
+### 📌 Descrição: Deletar tipo de peso
+
+---
+
+### 📤 Exemplo de Retorno (200)
+```json
+  {
+    "status": true,
+    "status_code": 200,
+    "message": "Item deletado com sucesso!!"
+  }
+```
+
+### ✏️ Método: `GET`
+### 🔀 Caminho: /tipoPeso
+### 📌 Descrição: Listar tipos de peso
+
+---
+
+### 📤 Exemplo de Retorno (200)
+```json
+{
+    "status": true,
+    "status_code": 200,
+    "itens": 2
+    "tipoPeso": [
+        {
+            "id": 1,
+            "tipo": "KG"
+        }
+        ...
+  }
+```
+
+### ✏️ Método: `GET`
+### 🔀 Caminho: /tipoPeso/{id do tipoPeso}
+### 📌 Descrição: Buscar tipo de peso pelo id
+
+---
+
+### 📤 Exemplo de Retorno (200)
+```json
+{
+    "status": true,
+    "status_code": 200,
+    "tipoPeso": [
+        {
+            "id": 1,
+            "tipo": "KG"
+        }
+        ...
+  }
+```
+
+### ⚠️ Possível Erro (404)
+Descrição: tipo de peso não existe
+```json
+{
+    "status": false,
+    "status_code": 404,
+    "message": "Não foram encontrados itens de retorno!!!"
+}
+```
+
+### ✏️ Método: `PUT`
+### 🔀 Caminho: /tipoPeso/${id do tipo de peso}
+### 📌 Descrição: Atualizar um tipo de peso pelo id 
+
+---
+
+### 📥 Exemplo de Body
+
+```json
+{
+  "tipo": "ml"
+}
+```
+
+### 📤 Exemplo de Retorno (200)
+```json
+{
+  "status": true,
+  "status_code": 200,
+  "message": "Item atualizado com sucesso!!",
+  "tipoPeso": {
+    "tipo": "ml"
+  }
+}
+```
+### ⚠️ Possível Erro (400)
+Descrição: tipo de peso não existe
+```json
+{
+  "status": false,
+  "status_code": 400,
+  "message": "Não foram encontrados itens de retorno!!!"
+}
+```
 
 
 
