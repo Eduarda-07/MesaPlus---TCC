@@ -78,6 +78,7 @@ https://mesaplus-bbh2hhheaab7f6ep.canadacentral-01.azurewebsites.net/v1/mesa-plu
 ---
 
 ## 🍽️ Empresas
+
 ### ✏️ Método: `POST`
 ### 🔀  Caminho: /empresa
 ### 📌 Descrição: Inserir nova empresa
@@ -215,6 +216,7 @@ https://mesaplus-bbh2hhheaab7f6ep.canadacentral-01.azurewebsites.net/v1/mesa-plu
 ---
 
 ## 🏛️ ONGs
+
 ### ✏️ Método: `POST`
 ### 🔀  Caminho: /ong
 ### 📌 Descrição: Inserir nova ong
@@ -317,6 +319,7 @@ https://mesaplus-bbh2hhheaab7f6ep.canadacentral-01.azurewebsites.net/v1/mesa-plu
 ---
 
 ## 👤 Usuários Comuns
+
 ### ✏️ Método: `POST`
 ### 🔀  Caminho: /usuario
 ### 📌 Descrição: Inserir novo usuário
@@ -608,7 +611,7 @@ Descrição: empresa ou tipo de usuário não existe
 
 ---
 
-## 🛒 Pedidos 
+## 🛒 Pedidos
 
 ### ✏️ Método: `POST`
 ### 🔀  Caminho: /pedidoUsuario
@@ -1116,7 +1119,7 @@ Descrição: código errado ou expirado
 
 ---
 
-### 📋 Categoria
+## 📋 Categoria
 
 ### ✏️ Método: `POST`
 ### 🔀 Caminho: /categoria
@@ -1247,7 +1250,7 @@ Descrição: categoria não existe
 
 ---
 
-### ⚖️ Tipo de peso
+## ⚖️ Tipo de peso
 
 ### ✏️ Método: `POST`
 ### 🔀 Caminho: /tipoPeso
@@ -1374,6 +1377,7 @@ Descrição: tipo de peso não existe
   "message": "Não foram encontrados itens de retorno!!!"
 }
 ```
+
 
 
 
