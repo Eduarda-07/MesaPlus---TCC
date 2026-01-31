@@ -4,24 +4,25 @@
 
 ## Índice
 
-- [Visão Geral](#-visão-geral)
+- [Visão Geral](#visao-geral)
 - [URL base](#url-base)
 - [Respostas comuns](#respostas-comuns)
 - [Empresas](#empresas)
-- [ONGS](#-ongs-2)
-- [Usuários](#-usuarios)
-- [Alimentos](#-alimentos)
-- [Pedidos](#-pedidos)
-- [Favoritos](#-favoritos)
-- [Filtros](#-filtros)
-- [Login](#-login)
-- [Código de recuperação](#-código-de-recuperação)
-- [Senha](#-senha)
-- [Categoria](#-categoria)
-- [Tipo de peso](#-tipo-de-peso)
+- [ONGS](#ongs)
+- [Usuários](#usuarios)
+- [Alimentos](#alimentos)
+- [Pedidos](#pedidos)
+- [Favoritos](#favoritos)
+- [Filtros](#filtros)
+- [Login](#login)
+- [Código de recuperação](#codigo-de-recuperacao)
+- [Senha](#senha)
+- [Categoria](#categoria)
+- [Tipo de peso](#tipo-de-peso)
 
 ---
 
+<a name="visao-geral"></a>
 ## 🔗 Visão Geral
 
 Esta API tem como objetivo realizar o **gerenciamento de alimentos para doação**, conectando empresas, ONGs e pessoas que necessitam de alimentos.  
@@ -61,11 +62,13 @@ O projeto busca:
 
 ---
 
+<a name="url-base"></a>
 ## URL base
 https://mesaplus-bbh2hhheaab7f6ep.canadacentral-01.azurewebsites.net/v1/mesa-plus
 
 ---
 
+<a name="respostas-comuns"></a>
 ## Respostas comuns
 
 | Status | Status code | Mesnsagem |
@@ -216,6 +219,7 @@ https://mesaplus-bbh2hhheaab7f6ep.canadacentral-01.azurewebsites.net/v1/mesa-plu
 
 ---
 
+<a name="ongs"></a>
 ## 🏛️ ONGs
 
 ### ✏️ Método: `POST`
@@ -318,7 +322,7 @@ https://mesaplus-bbh2hhheaab7f6ep.canadacentral-01.azurewebsites.net/v1/mesa-plu
 ```
 
 ---
-
+<a name="usuarios"></a>
 ## 👤 Usuários Comuns
 
 ### ✏️ Método: `POST`
@@ -423,6 +427,7 @@ https://mesaplus-bbh2hhheaab7f6ep.canadacentral-01.azurewebsites.net/v1/mesa-plu
 ```
 ---
 
+<a name="alimentos"></a>
 ## 🍝 Alimentos
 
 ### ✏️ Método: `POST`
@@ -612,6 +617,7 @@ Descrição: empresa ou tipo de usuário não existe
 
 ---
 
+<a name="pedidos"></a>
 ## 🛒 Pedidos
 
 ### ✏️ Método: `POST`
@@ -725,6 +731,7 @@ Descrição: usuário não tem pedidos
 
 ---
 
+<a name="favoritos"></a>
 ## ⭐ Favoritos
 
 ### ✏️ Método: `POST`
@@ -830,6 +837,7 @@ Descrição: usuário não tem favoritos
 
 ---
 
+<a name="filtros"></a>
 ## 📝 Filtros
 
 ### ✏️ Método: `GET`
@@ -952,7 +960,10 @@ Descrição: categoria não existe
   "message": "Não foram encontrados itens de retorno!!!"
 }
 ```
+
 ---
+
+<a name="login"></a>
 ## 🔓 Login
 
 ### ✏️ Método: `POST`
@@ -999,6 +1010,7 @@ Descrição: usuário não existe
 
 ---
 
+<a name="codigo-de-recuperacao"></a>
 ## 🔢 Código de recuperação
 
 ### ✏️ Método: `POST`
@@ -1090,6 +1102,7 @@ Descrição: código errado ou expirado
 
 ---
 
+<a name="senha"></a>
 ## 🔑 Senha
 
 ### ✏️ Método: `PUT`
@@ -1120,6 +1133,7 @@ Descrição: código errado ou expirado
 
 ---
 
+<a name="categoria"></a>
 ## 📋 Categoria
 
 ### ✏️ Método: `POST`
@@ -1251,6 +1265,7 @@ Descrição: categoria não existe
 
 ---
 
+<a name="tipo-de-peso"></a>
 ## ⚖️ Tipo de peso
 
 ### ✏️ Método: `POST`
@@ -1378,6 +1393,7 @@ Descrição: tipo de peso não existe
   "message": "Não foram encontrados itens de retorno!!!"
 }
 ```
+
 
 
 
