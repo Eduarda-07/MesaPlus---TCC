@@ -8,17 +8,17 @@
 - [URL base](#url-base)
 - [Respostas comuns](#respostas-comuns)
 - [Empresas](#-empresas)
-- [ONGS](#ongs)
-- [Usuários](#usuários)
-- [Alimentos](#alimentos)
-- [Pedidos](#pedidos)
-- [Favoritos](#favoritos)
-- [Filtros](#filtros)
-- [Login](#login)
-- [Código de recuperação](#código-de-recuperacao)
+- [ONGS](#-ongs)
+- [Usuários](#-usuários)
+- [Alimentos](#-alimentos)
+- [Pedidos](#-pedidos)
+- [Favoritos](#-favoritos)
+- [Filtros](#-filtros)
+- [Login](#-login)
+- [Código de recuperação](#-código-de-recuperação)
 - [Senha](#-senha)
-- [Categoria](#categoria)
-- [Tipo de peso](#tipo-de-peso)
+- [Categoria](#-categoria)
+- [Tipo de peso](#-tipo-de-peso)
 
 ---
 
@@ -1374,6 +1374,7 @@ Descrição: tipo de peso não existe
   "message": "Não foram encontrados itens de retorno!!!"
 }
 ```
+
 
 
 
