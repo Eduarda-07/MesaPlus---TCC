@@ -16,7 +16,7 @@
 - [Filtros](#filtros)
 - [Login](#login)
 - [Código de recuperação](#código-de-recuperacao)
-- [Senha](#senha)
+- [Senha](#-senha)
 - [Categoria](#categoria)
 - [Tipo de peso](#tipo-de-peso)
 
@@ -1374,6 +1374,7 @@ Descrição: tipo de peso não existe
   "message": "Não foram encontrados itens de retorno!!!"
 }
 ```
+
 
 
 
