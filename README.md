@@ -7,7 +7,7 @@
 - [Visão Geral](#-visão-geral)
 - [URL base](#url-base)
 - [Respostas comuns](#respostas-comuns)
-- [Empresas](#-empresas)
+- [Empresas](#empresas)
 - [ONGS](#-ongs-2)
 - [Usuários](#-usuarios)
 - [Alimentos](#-alimentos)
@@ -77,6 +77,7 @@ https://mesaplus-bbh2hhheaab7f6ep.canadacentral-01.azurewebsites.net/v1/mesa-plu
 
 ---
 
+<a name="empresas"></a>
 ## 🍽️ Empresas
 
 ### ✏️ Método: `POST`
@@ -1377,6 +1378,7 @@ Descrição: tipo de peso não existe
   "message": "Não foram encontrados itens de retorno!!!"
 }
 ```
+
 
 
 
