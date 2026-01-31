@@ -8,8 +8,8 @@
 - [URL base](#url-base)
 - [Respostas comuns](#respostas-comuns)
 - [Empresas](#-empresas)
-- [ONGS](#-ongs)
-- [Usuários](#-usuários)
+- [ONGS](#-ongs-2)
+- [Usuários](#-usuarios)
 - [Alimentos](#-alimentos)
 - [Pedidos](#-pedidos)
 - [Favoritos](#-favoritos)
@@ -1377,6 +1377,7 @@ Descrição: tipo de peso não existe
   "message": "Não foram encontrados itens de retorno!!!"
 }
 ```
+
 
 
 
